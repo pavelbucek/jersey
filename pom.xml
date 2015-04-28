@@ -914,6 +914,7 @@
                 <module>examples/java8-webapp</module>
                 <module>examples/rx-client-java8-webapp</module>
                 <module>ext/rx/rx-client-java8</module>
+                <module>incubator/types/java8-types</module>
             </modules>
             <build>
                 <pluginManagement>
