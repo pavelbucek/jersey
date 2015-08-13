@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2010-2013 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -10,7 +10,8 @@
  * obtain a copy of the License at
  * http://glassfish.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
- * language governing permissions and limitations under the License.P
+ * language governing permissions and limitations under the License.
+ *
  * When distributing the software, include this License Header Notice in each
  * file and include the License file at packager/legal/LICENSE.txt.
  *
@@ -36,37 +37,53 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.jersey.server.internal.inject;
+package org.glassfish.jersey.server.spi.internal;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
-import org.glassfish.jersey.server.ContainerRequest;
+import org.glassfish.jersey.server.model.Parameter;
 
 import org.glassfish.hk2.api.Factory;
 
 /**
- * An abstract value factory that provides access to the current {@link ContainerRequest} instance.
+ * Extends {@link Factory} interface with
+ * {@link org.glassfish.jersey.server.model.Parameter.Source} information.
  *
- * @param <T> the type of the injectable value.
- * @author Paul Sandoz
- * @author Marek Potociar (marek.potociar at oracle.com)
+ * @param <T> This must be the type of entity for which this is a factory.
+ * @author Petr Bouda (petr.bouda at oracle.com)
  */
-public abstract class AbstractContainerRequestValueFactory<T> implements Factory<T> {
-    @Inject
-    private Provider<ContainerRequest> request;
+public final class ParamValueFactoryWithSource<T> implements Factory<T> {
+
+    private final Factory<T> factory;
+    private final Parameter.Source parameterSource;
+
+    /**
+     * Wrap provided param factory.
+     *
+     * @param factory         param factory to be wrapped.
+     * @param parameterSource param source.
+     */
+    public ParamValueFactoryWithSource(Factory<T> factory, Parameter.Source parameterSource) {
+        this.factory = factory;
+        this.parameterSource = parameterSource;
+    }
 
     @Override
-    public void dispose(T instance) {
-        //not used
+    public T provide() {
+        return factory.provide();
+    }
+
+    @Override
+    public void dispose(T t) {
+        factory.dispose(t);
     }
 
     /**
-     * Get the container request.
+     * Returns {@link org.glassfish.jersey.server.model.Parameter.Source}
+     * which closely determines a function of the given factory.
      *
-     * @return the container request.
-     */
-    protected final ContainerRequest getContainerRequest() {
-        return request.get();
+     * @return Source which a given parameter belongs to.
+     **/
+    public Parameter.Source getSource() {
+        return parameterSource;
     }
+
 }
