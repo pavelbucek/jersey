@@ -162,24 +162,31 @@ class ClientRuntime implements JerseyClient.ShutdownHook {
                         return;
                     }
 
-                    final SettableFuture<ClientResponse> responseFuture = SettableFuture.create();
+                    final RequestScope.Instance instance = requestScope.suspendCurrent();
                     final AsyncConnectorCallback connectorCallback = new AsyncConnectorCallback() {
 
                         @Override
                         public void response(final ClientResponse response) {
-                            responseFuture.set(response);
+                            requestScope.runInScope(instance, new Runnable() {
+                                @Override
+                                public void run() {
+                                    processResponse(response, callback);
+                                }
+                            });
                         }
 
                         @Override
                         public void failure(final Throwable failure) {
-                            responseFuture.setException(failure);
+                            requestScope.runInScope(instance, new Runnable() {
+                                @Override
+                                public void run() {
+                                    processFailure(failure, callback);
+                                }
+                            });
                         }
                     };
                     connector.apply(processedRequest, connectorCallback);
 
-                    processResponse(responseFuture.get(), callback);
-                } catch (final ExecutionException e) {
-                    processFailure(e.getCause(), callback);
                 } catch (final Throwable throwable) {
                     processFailure(throwable, callback);
                 }
