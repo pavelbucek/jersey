@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2012-2015 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012-2016 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -51,6 +51,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.glassfish.jersey.server.internal.AbstractResourceFinderAdapter;
 import org.glassfish.jersey.uri.UriComponent;
@@ -61,6 +63,7 @@ import org.glassfish.jersey.uri.UriComponent;
  *
  * @author Paul Sandoz
  * @author Gerard Davison (gerard.davison at oracle.com)
+ * @author Qunfei Wu (wu.qunfei@gmail.com)
  */
 final class JarZipSchemeResourceFinderFactory implements UriSchemeResourceFinderFactory {
 
@@ -155,7 +158,7 @@ final class JarZipSchemeResourceFinderFactory implements UriSchemeResourceFinder
      * <li><code>zip:/tmp/fishfingers.zip!/example.txt</code></li>
      * <li><code>zip:d:/tempfishfingers.zip!/example.txt</code></li>
      * </ul>
-     * <p/>
+     * <p>
      * This method will first attempt to create a {@link InputStream} as follows:
      * <pre>
      *   new URL(jarUrlString).openStream();
@@ -172,12 +175,50 @@ final class JarZipSchemeResourceFinderFactory implements UriSchemeResourceFinder
      * @return a {@link InputStream}.
      * @throws IOException if there is an error opening the stream.
      */
-    private InputStream getInputStream(final String jarUrlString) throws IOException {
+    private InputStream getInputStream(String jarUrlString) throws IOException {
         try {
-            return new URL(jarUrlString).openStream();
-        } catch (final MalformedURLException e) {
+            InputStream inputStream;
+            if (jarUrlString.contains("!")) {
+                inputStream = getInnerJarInputStream(jarUrlString.replace("file:", ""));
+            } else {
+                inputStream = new URL(jarUrlString).openStream();
+            }
+            if (inputStream == null) {
+                throw new IOException(String.format("Unable to load jar '%s'", jarUrlString);
+            }
+            return inputStream;
+
+        } catch (MalformedURLException e) {
             return new FileInputStream(
                     UriComponent.decode(jarUrlString, UriComponent.Type.PATH));
         }
+    }
+
+    private InputStream getInnerJarInputStream(String jarUrlString) throws IOException {
+        String jars[] = jarUrlString.split("!");
+        if (jars.length == 2) {
+            return readInnerJar(jars);
+        }
+        return null;
+    }
+
+    private InputStream readInnerJar(String[] jars) throws IOException {
+        String jarFileName = jars[0];
+        String libFileName = jars[1].substring(1);
+        if (this.isLibraryFile(jarFileName) && this.isLibraryFile(libFileName)) {
+            ZipFile zip = new ZipFile(jarFileName);
+            return zip.getInputStream(new ZipEntry(libFileName));
+        }
+        return null;
+    }
+
+    private boolean isLibraryFile(String fileName) {
+        for (String scheme : getSchemes()) {
+            String fileType = "." + scheme;
+            if (fileName.contains(fileType)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
