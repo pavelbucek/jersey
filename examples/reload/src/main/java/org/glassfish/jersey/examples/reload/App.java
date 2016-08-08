@@ -59,6 +59,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.examples.reload.compiler.AppClassLoader;
 import org.glassfish.jersey.examples.reload.compiler.Compiler;
 import org.glassfish.jersey.examples.reload.compiler.JavaFile;
@@ -66,10 +67,6 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spi.Container;
 import org.glassfish.jersey.server.spi.ContainerLifecycleListener;
-
-import org.glassfish.grizzly.http.server.HttpServer;
-
-import com.sun.nio.file.SensitivityWatchEventModifier;
 
 /**
  * Reload example application.
@@ -144,8 +141,8 @@ public class App {
             directory.register(watcher,
                     new WatchEvent.Kind[]{
                             StandardWatchEventKinds.ENTRY_MODIFY
-                    },
-                    SensitivityWatchEventModifier.HIGH);
+                    } /*,
+                    SensitivityWatchEventModifier.HIGH */);
         }
 
         private void reloadApp(final File configFile) {

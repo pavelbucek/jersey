@@ -1,0 +1,10 @@
+module org.glassfish.jersey.client {
+
+        requires org.glassfish.jersey.common;
+
+        exports org.glassfish.jersey.client.authentication;
+        exports org.glassfish.jersey.client.filter;
+        exports org.glassfish.jersey.client.spi;
+        exports org.glassfish.jersey.client;
+
+}

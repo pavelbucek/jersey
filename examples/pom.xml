@@ -70,7 +70,7 @@
         <module>entity-filtering</module>
         <module>entity-filtering-selectable</module>
         <module>entity-filtering-security</module>
-        <module>extended-wadl-webapp</module>
+        <!--<module>extended-wadl-webapp</module>-->
         <module>exception-mapping</module>
         <module>freemarker-webapp</module>
         <module>flight-mgmt-webapp</module>
@@ -103,8 +103,8 @@
         <module>managed-client-simple-webapp</module>
         <module>monitoring-webapp</module>
         <module>multipart-webapp</module>
-        <module>osgi-helloworld-webapp</module>
-        <module>osgi-http-service</module>
+        <!--<module>osgi-helloworld-webapp</module>-->
+        <!--<module>osgi-http-service</module>-->
         <module>oauth-client-twitter</module>
         <module>oauth2-client-google-webapp</module>
         <module>reload</module>

@@ -56,8 +56,8 @@
     <description>Jersey test framework Maven projects</description>
 
     <modules>
-        <module>container-runner-maven-plugin</module>
-        <module>custom-enforcer-rules</module>
+        <!--<module>container-runner-maven-plugin</module>-->
+        <!--<module>custom-enforcer-rules</module>-->
     </modules>
 
 </project>
