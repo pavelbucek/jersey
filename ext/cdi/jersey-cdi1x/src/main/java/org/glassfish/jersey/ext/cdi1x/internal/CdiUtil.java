@@ -128,6 +128,7 @@ public final class CdiUtil {
     static <T> T lookupService(final Class<T> clazz) {
         final List<RankedProvider<T>> providers = new LinkedList<>();
 
+        // TODD XXX FIXME
         for (final T provider : ServiceFinder.find(clazz)) {
             providers.add(new RankedProvider<>(provider));
         }

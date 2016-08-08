@@ -53,6 +53,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -488,6 +489,7 @@ public final class ApplicationHandler implements ContainerLifecycleListener {
             runtimeConfig.lock();
 
             componentBag = runtimeConfig.getComponentBag();
+            // TODO XXX FIXME
             final Class<ExternalRequestScope>[] extScopes = ServiceFinder.find(ExternalRequestScope.class, true).toClassArray();
 
             boolean extScopeBound = false;
@@ -748,6 +750,10 @@ public final class ApplicationHandler implements ContainerLifecycleListener {
         for (final ComponentProvider provider : ServiceFinder.find(ComponentProvider.class)) {
             result.add(new RankedProvider<>(provider));
         }
+        for (final ComponentProvider provider : ServiceLoader.load(ComponentProvider.class)) {
+            result.add(new RankedProvider<>(provider));
+        }
+
         Collections.sort(result, new RankedComparator<ComponentProvider>(Order.DESCENDING));
         return result;
     }

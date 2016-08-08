@@ -69,24 +69,24 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <inherited>true</inherited>
             </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <inherited>true</inherited>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>org.glassfish.jersey.jsonp.*;version=${project.version}</Export-Package>
-                        <!-- TODO: change to ${range;[==,+);${jsonp.api.version}} once the version is final-->
-                        <Import-Package>
-                            javax.json.*;version="[0,2)",
-                            org.glassfish.json.*;version="[0,2)",
-                            *
-                        </Import-Package>
-                    </instructions>
-                    <unpackBundle>true</unpackBundle>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.felix</groupId>-->
+                <!--<artifactId>maven-bundle-plugin</artifactId>-->
+                <!--<inherited>true</inherited>-->
+                <!--<extensions>true</extensions>-->
+                <!--<configuration>-->
+                    <!--<instructions>-->
+                        <!--<Export-Package>org.glassfish.jersey.jsonp.*;version=${project.version}</Export-Package>-->
+                        <!--&lt;!&ndash; TODO: change to ${range;[==,+);${jsonp.api.version}} once the version is final&ndash;&gt;-->
+                        <!--<Import-Package>-->
+                            <!--javax.json.*;version="[0,2)",-->
+                            <!--org.glassfish.json.*;version="[0,2)",-->
+                            <!--*-->
+                        <!--</Import-Package>-->
+                    <!--</instructions>-->
+                    <!--<unpackBundle>true</unpackBundle>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

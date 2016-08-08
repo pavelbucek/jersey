@@ -42,6 +42,7 @@ package org.glassfish.jersey.server.validation.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,6 +133,9 @@ public final class ValidationBinder extends AbstractBinder {
                                             .find(ValidationProvider.class)) {
                                         validationProviders.add(validationProvider);
                                     }
+
+                                    // jdk9
+                                    ServiceLoader.load(ValidationProvider.class).forEach(validationProviders::add);
 
                                     return validationProviders;
                                 }

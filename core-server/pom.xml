@@ -76,25 +76,25 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <inherited>true</inherited>
             </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <inherited>true</inherited>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <!-- Note: When you're changing these properties change them also in bundles/jaxrs-ri/pom.xml. -->
-                        <Export-Package>
-                            org.glassfish.jersey.server.*;version=${project.version},
-                            com.sun.research.ws.wadl.*;version=${project.version}
-                        </Export-Package>
-                        <Import-Package>
-                            *
-                        </Import-Package>
-                    </instructions>
-                    <unpackBundle>true</unpackBundle>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.felix</groupId>-->
+                <!--<artifactId>maven-bundle-plugin</artifactId>-->
+                <!--<inherited>true</inherited>-->
+                <!--<extensions>true</extensions>-->
+                <!--<configuration>-->
+                    <!--<instructions>-->
+                        <!--&lt;!&ndash; Note: When you're changing these properties change them also in bundles/jaxrs-ri/pom.xml. &ndash;&gt;-->
+                        <!--<Export-Package>-->
+                            <!--org.glassfish.jersey.server.*;version=${project.version},-->
+                            <!--com.sun.research.ws.wadl.*;version=${project.version}-->
+                        <!--</Export-Package>-->
+                        <!--<Import-Package>-->
+                            <!--*-->
+                        <!--</Import-Package>-->
+                    <!--</instructions>-->
+                    <!--<unpackBundle>true</unpackBundle>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <!--
                 Note: If you need to re-generate WADL classes do so by invoking:
@@ -131,6 +131,24 @@
                     <removeOldOutput>true</removeOldOutput>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-shade-plugin</artifactId>-->
+                <!--<inherited>true</inherited>-->
+                <!--<configuration>-->
+                    <!--<artifactSet>-->
+                        <!--<includes>-->
+                            <!--<include>org.ow2.asm:asm-debug-all:*</include>-->
+                        <!--</includes>-->
+                    <!--</artifactSet>-->
+                    <!--<relocations>-->
+                        <!--<relocation>-->
+                            <!--<pattern>org.objectweb.asm</pattern>-->
+                            <!--<shadedPattern>${jersey.repackaged.prefix}.org.objectweb.asm</shadedPattern>-->
+                        <!--</relocation>-->
+                    <!--</relocations>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

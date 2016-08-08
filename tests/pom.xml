@@ -62,11 +62,11 @@
     <modules>
         <module>e2e</module>
         <module>e2e-testng</module>
-        <module>integration</module>
-        <module>mem-leaks</module>
-        <module>osgi</module>
-        <module>stress</module>
-        <module>performance</module>
+        <!--<module>integration</module>-->
+        <!--<module>mem-leaks</module>-->
+        <!--<module>osgi</module>-->
+        <!--<module>stress</module>-->
+        <!--<module>performance</module>-->
     </modules>
 
     <dependencyManagement>

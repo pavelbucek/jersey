@@ -52,6 +52,7 @@ import org.glassfish.jersey.internal.ExceptionMapperFactory;
 import org.glassfish.jersey.internal.JaxrsProviders;
 import org.glassfish.jersey.internal.JerseyErrorService;
 import org.glassfish.jersey.internal.ServiceFinderBinder;
+import org.glassfish.jersey.internal.ServiceLoaderBinder;
 import org.glassfish.jersey.internal.inject.ContextInjectionResolver;
 import org.glassfish.jersey.internal.inject.JerseyClassAnalyzer;
 import org.glassfish.jersey.internal.spi.AutoDiscoverable;
@@ -105,8 +106,10 @@ class ServerBinder extends AbstractBinder {
                 new ProcessingProviders.Binder(),
                 new ResourceModelBinder(),
                 new ServiceFinderBinder<>(ContainerProvider.class, applicationProperties, RuntimeType.SERVER),
+                new ServiceLoaderBinder<>(ContainerProvider.class, applicationProperties, RuntimeType.SERVER),
                 new JerseyResourceContext.Binder(),
                 new ServiceFinderBinder<>(AutoDiscoverable.class, applicationProperties, RuntimeType.SERVER),
+                new ServiceLoaderBinder<>(AutoDiscoverable.class, applicationProperties, RuntimeType.SERVER),
                 new MappableExceptionWrapperInterceptor.Binder(),
                 new MonitoringContainerListener.Binder());
 

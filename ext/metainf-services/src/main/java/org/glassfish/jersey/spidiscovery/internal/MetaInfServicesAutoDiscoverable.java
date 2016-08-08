@@ -51,6 +51,7 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.annotation.Priority;
 
 import org.glassfish.jersey.internal.ServiceFinderBinder;
+import org.glassfish.jersey.internal.ServiceLoaderBinder;
 import org.glassfish.jersey.internal.spi.AutoDiscoverable;
 import org.glassfish.jersey.internal.spi.ForcedAutoDiscoverable;
 
@@ -71,10 +72,13 @@ public class MetaInfServicesAutoDiscoverable implements ForcedAutoDiscoverable {
             @Override
             protected void configure() {
                 // Message Body providers.
-                install(new ServiceFinderBinder<MessageBodyReader>(MessageBodyReader.class, properties, runtimeType));
-                install(new ServiceFinderBinder<MessageBodyWriter>(MessageBodyWriter.class, properties, runtimeType));
+                install(new ServiceFinderBinder<>(MessageBodyReader.class, properties, runtimeType));
+                install(new ServiceFinderBinder<>(MessageBodyWriter.class, properties, runtimeType));
+                install(new ServiceLoaderBinder<>(MessageBodyReader.class, properties, runtimeType));
+                install(new ServiceLoaderBinder<>(MessageBodyWriter.class, properties, runtimeType));
                 // Exception Mappers.
-                install(new ServiceFinderBinder<ExceptionMapper>(ExceptionMapper.class, properties, runtimeType));
+                install(new ServiceFinderBinder<>(ExceptionMapper.class, properties, runtimeType));
+                install(new ServiceLoaderBinder<>(ExceptionMapper.class, properties, runtimeType));
             }
         });
     }

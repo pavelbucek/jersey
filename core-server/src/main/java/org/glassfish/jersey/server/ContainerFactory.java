@@ -39,6 +39,8 @@
  */
 package org.glassfish.jersey.server;
 
+import java.util.ServiceLoader;
+
 import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.internal.ServiceFinder;
@@ -78,6 +80,13 @@ public final class ContainerFactory {
     @SuppressWarnings("unchecked")
     public static <T> T createContainer(final Class<T> type, final Application application) {
         for (final ContainerProvider containerProvider : ServiceFinder.find(ContainerProvider.class)) {
+            final T container = containerProvider.createContainer(type, application);
+            if (container != null) {
+                return container;
+            }
+        }
+
+        for (final ContainerProvider containerProvider : ServiceLoader.load(ContainerProvider.class)) {
             final T container = containerProvider.createContainer(type, application);
             if (container != null) {
                 return container;

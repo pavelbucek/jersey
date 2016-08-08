@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
@@ -76,6 +77,11 @@ final class JerseyRxInvocationBuilder<RX extends RxInvoker> implements RxInvocat
         for (final RxInvokerProvider provider : ServiceFinder.find(RxInvokerProvider.class)) {
             INVOKER_PROVIDERS.add(provider);
         }
+
+        for (final RxInvokerProvider provider : ServiceLoader.load(RxInvokerProvider.class)) {
+            INVOKER_PROVIDERS.add(provider);
+        }
+
     }
 
     private final Class<RX> invokerType;

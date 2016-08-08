@@ -46,6 +46,7 @@ import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -176,11 +177,16 @@ public class JerseyClient implements javax.ws.rs.client.Client, Initializable<Je
             } else {
                 final DefaultSslContextProvider lookedUpSslContextProvider;
 
-                final Iterator<DefaultSslContextProvider> iterator =
+                final Iterator<DefaultSslContextProvider> serviceFinder =
                         ServiceFinder.find(DefaultSslContextProvider.class).iterator();
 
-                if (iterator.hasNext()) {
-                    lookedUpSslContextProvider = iterator.next();
+                final Iterator<DefaultSslContextProvider> serviceLoader =
+                        ServiceLoader.load(DefaultSslContextProvider.class).iterator();
+
+                if (serviceFinder.hasNext()) {
+                    lookedUpSslContextProvider = serviceFinder.next();
+                } else if(serviceLoader.hasNext()) {
+                    lookedUpSslContextProvider = serviceLoader.next();
                 } else {
                     lookedUpSslContextProvider = DEFAULT_SSL_CONTEXT_PROVIDER;
                 }

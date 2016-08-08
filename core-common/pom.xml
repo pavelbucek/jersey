@@ -84,8 +84,9 @@
                         <!-- Do not warn about using sun.misc.Unsafe -->
                         <XDignore.symbol.file />
                     </compilerArguments>
-                    <showWarnings>false</showWarnings>
+                    <showWarnings>true</showWarnings>
                     <fork>false</fork>
+
                 </configuration>
             </plugin>
             <plugin>
@@ -111,24 +112,24 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <inherited>true</inherited>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <!-- Note: When you're changing these properties change them also in bundles/jaxrs-ri/pom.xml. -->
-                        <Import-Package>
-                            sun.misc.*;resolution:=optional,
-                            *
-                        </Import-Package>
-                        <Export-Package>org.glassfish.jersey.*;version=${project.version}</Export-Package>
-                        <Private-Package>org.glassfish.jersey.osgi</Private-Package>
-                    </instructions>
-                    <unpackBundle>true</unpackBundle>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.felix</groupId>-->
+                <!--<artifactId>maven-bundle-plugin</artifactId>-->
+                <!--<inherited>true</inherited>-->
+                <!--<extensions>true</extensions>-->
+                <!--<configuration>-->
+                    <!--<instructions>-->
+                        <!--&lt;!&ndash; Note: When you're changing these properties change them also in bundles/jaxrs-ri/pom.xml. &ndash;&gt;-->
+                        <!--<Import-Package>-->
+                            <!--sun.misc.*;resolution:=optional,-->
+                            <!--*-->
+                        <!--</Import-Package>-->
+                        <!--<Export-Package>org.glassfish.jersey.*;version=${project.version}</Export-Package>-->
+                        <!--<Private-Package>org.glassfish.jersey.osgi</Private-Package>-->
+                    <!--</instructions>-->
+                    <!--<unpackBundle>true</unpackBundle>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
@@ -174,7 +175,7 @@
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -198,6 +199,7 @@
             <!-- Must be declared before JUnit dependency, otherwise not visible to JUnit. -->
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -253,6 +255,7 @@
 
     <properties>
         <surefire.security.argline>-Djava.security.manager -Djava.security.policy=${project.build.directory}/test-classes/surefire.policy</surefire.security.argline>
+        <!--<java.version>1.6</java.version>-->
     </properties>
 
 </project>

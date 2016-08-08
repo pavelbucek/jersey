@@ -95,6 +95,11 @@
             <artifactId>container-common</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,33 +129,33 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <inherited>true</inherited>
             </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <!-- Explicitly set versions for packages from GlassFish to allow future uptake of GlassFish 5.x-->
-                        <Import-Package>
-                            com.sun.*;version="[4.0,6)",
-                            org.glassfish.ejb.*;version="[4.0,6)",
-                            org.glassfish.internal.*;version="[4.0,6)",
-                            *
-                        </Import-Package>
-                        <_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>
-                        <_nodefaultversion>false</_nodefaultversion>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>osgi-bundle</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.felix</groupId>-->
+                <!--<artifactId>maven-bundle-plugin</artifactId>-->
+                <!--<extensions>true</extensions>-->
+                <!--<configuration>-->
+                    <!--<instructions>-->
+                        <!--&lt;!&ndash; Explicitly set versions for packages from GlassFish to allow future uptake of GlassFish 5.x&ndash;&gt;-->
+                        <!--<Import-Package>-->
+                            <!--com.sun.*;version="[4.0,6)",-->
+                            <!--org.glassfish.ejb.*;version="[4.0,6)",-->
+                            <!--org.glassfish.internal.*;version="[4.0,6)",-->
+                            <!--*-->
+                        <!--</Import-Package>-->
+                        <!--<_versionpolicy>[$(version;==;$(@)),$(version;+;$(@)))</_versionpolicy>-->
+                        <!--<_nodefaultversion>false</_nodefaultversion>-->
+                    <!--</instructions>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>osgi-bundle</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>bundle</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

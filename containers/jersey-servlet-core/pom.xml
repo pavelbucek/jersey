@@ -56,12 +56,20 @@
     <description>Jersey core Servlet 2.x implementation</description>
 
     <dependencies>
+
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet2.version}</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet3.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+            <!--<version>${servlet2.version}</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
@@ -84,25 +92,25 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <inherited>true</inherited>
             </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <inherited>true</inherited>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <!-- Note: When you're changing these properties change them also in bundles/jax-rs-ri/bundle/pom.xml. -->
-                        <Import-Package>
-                            javax.persistence.*;resolution:=optional,
-                            javax.servlet.*;version="[2.4,4.0)",
-                            javax.annotation.*;version=!,
-                            *
-                        </Import-Package>
-                        <Export-Package>org.glassfish.jersey.servlet.*</Export-Package>
-                    </instructions>
-                    <unpackBundle>true</unpackBundle>
-                </configuration>
-             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.felix</groupId>-->
+                <!--<artifactId>maven-bundle-plugin</artifactId>-->
+                <!--<inherited>true</inherited>-->
+                <!--<extensions>true</extensions>-->
+                <!--<configuration>-->
+                    <!--<instructions>-->
+                        <!--&lt;!&ndash; Note: When you're changing these properties change them also in bundles/jax-rs-ri/bundle/pom.xml. &ndash;&gt;-->
+                        <!--<Import-Package>-->
+                            <!--javax.persistence.*;resolution:=optional,-->
+                            <!--javax.servlet.*;version="[2.4,4.0)",-->
+                            <!--javax.annotation.*;version=!,-->
+                            <!--*-->
+                        <!--</Import-Package>-->
+                        <!--<Export-Package>org.glassfish.jersey.servlet.*</Export-Package>-->
+                    <!--</instructions>-->
+                    <!--<unpackBundle>true</unpackBundle>-->
+                <!--</configuration>-->
+             <!--</plugin>-->
          </plugins>
     </build>
 

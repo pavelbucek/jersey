@@ -57,6 +57,8 @@ import org.glassfish.hk2.utilities.binding.BindingBuilderFactory;
 import org.glassfish.hk2.utilities.binding.ScopedBindingBuilder;
 import org.glassfish.hk2.utilities.binding.ServiceBindingBuilder;
 
+import org.jvnet.hk2.external.generator.ServiceLocatorGeneratorImpl;
+
 /**
  * HK2 injection binding utility methods.
  *
@@ -135,7 +137,9 @@ public class Injections {
 
     private static ServiceLocator _createLocator(final String name, final ServiceLocator parent, final Binder... binders) {
         // Passing null as service locator generator would force HK2 to find appropriate one.
-        final ServiceLocator result = factory.create(name, parent, null, ServiceLocatorFactory.CreatePolicy.DESTROY);
+        final ServiceLocator result = factory.create(name, parent,
+                new ServiceLocatorGeneratorImpl(),
+                ServiceLocatorFactory.CreatePolicy.DESTROY);
 
         result.setNeutralContextClassLoader(false);
         ServiceLocatorUtilities.enablePerThreadScope(result);

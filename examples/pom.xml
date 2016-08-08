@@ -59,69 +59,69 @@
 
     <modules>
         <module>assemblies</module>
-        <module>bean-validation-webapp</module>
-        <module>bookmark</module>
-        <module>bookmark-em</module>
-        <module>bookstore-webapp</module>
-        <module>cdi-webapp</module>
+        <!--<module>bean-validation-webapp</module>-->
+        <!--<module>bookmark</module>-->
+        <!--<module>bookmark-em</module>-->
+        <!--<module>bookstore-webapp</module>-->
+        <!--<module>cdi-webapp</module>-->
         <module>clipboard</module>
         <module>clipboard-programmatic</module>
         <module>declarative-linking</module>
         <module>entity-filtering</module>
         <module>entity-filtering-selectable</module>
         <module>entity-filtering-security</module>
-        <module>extended-wadl-webapp</module>
+        <!--<module>extended-wadl-webapp</module>-->
         <module>exception-mapping</module>
-        <module>freemarker-webapp</module>
-        <module>flight-mgmt-webapp</module>
+        <!--<module>freemarker-webapp</module>-->
+        <!--<module>flight-mgmt-webapp</module>-->
         <module>groovy</module>
         <module>helloworld</module>
         <module>helloworld-benchmark</module>
         <module>helloworld-netty</module>
         <module>helloworld-programmatic</module>
         <module>helloworld-pure-jax-rs</module>
-        <module>helloworld-webapp</module>
+        <!--<module>helloworld-webapp</module>-->
         <module>helloworld-weld</module>
-        <module>helloworld-spring-webapp</module>
+        <!--<module>helloworld-spring-webapp</module>-->
         <module>helloworld-spring-annotations</module>
         <module>http-patch</module>
         <module>http-trace</module>
         <module>https-clientserver-grizzly</module>
-        <module>https-server-glassfish</module>
+        <!--<module>https-server-glassfish</module>-->
         <module>jaxb</module>
         <module>jaxrs-types-injection</module>
-        <module>jersey-ejb</module>
+        <!--<module>jersey-ejb</module>-->
         <module>json-jackson</module>
         <module>json-jackson1</module>
         <module>json-jettison</module>
         <module>json-moxy</module>
-        <module>json-processing-webapp</module>
+        <!--<module>json-processing-webapp</module>-->
         <module>json-with-padding</module>
-        <module>managed-beans-webapp</module>
+        <!--<module>managed-beans-webapp</module>-->
         <module>managed-client</module>
-        <module>managed-client-webapp</module>
-        <module>managed-client-simple-webapp</module>
-        <module>monitoring-webapp</module>
-        <module>multipart-webapp</module>
-        <module>osgi-helloworld-webapp</module>
-        <module>osgi-http-service</module>
+        <!--<module>managed-client-webapp</module>-->
+        <!--<module>managed-client-simple-webapp</module>-->
+        <!--<module>monitoring-webapp</module>-->
+        <!--<module>multipart-webapp</module>-->
+        <!--<module>osgi-helloworld-webapp</module>-->
+        <!--<module>osgi-http-service</module>-->
         <module>oauth-client-twitter</module>
-        <module>oauth2-client-google-webapp</module>
+        <!--<module>oauth2-client-google-webapp</module>-->
         <module>reload</module>
-        <module>rx-client-webapp</module>
+        <!--<module>rx-client-webapp</module>-->
         <module>server-async</module>
         <module>server-async-managed</module>
-        <module>server-async-standalone</module>
+        <!--<module>server-async-standalone</module>-->
         <module>server-sent-events</module>
-        <module>servlet3-webapp</module>
+        <!--<module>servlet3-webapp</module>-->
         <module>simple-console</module>
-        <module>shortener-webapp</module>
+        <!--<module>shortener-webapp</module>-->
         <module>sparklines</module>
-        <module>sse-item-store-webapp</module>
+        <!--<module>sse-item-store-webapp</module>-->
         <module>sse-twitter-aggregator</module>
         <module>system-properties-example</module>
         <module>tone-generator</module>
-        <module>webapp-example-parent</module>
+        <!--<module>webapp-example-parent</module>-->
         <module>xml-moxy</module>
     </modules>
 

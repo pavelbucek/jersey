@@ -80,6 +80,7 @@ import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.internal.ServiceFinderBinder;
+import org.glassfish.jersey.internal.ServiceLoaderBinder;
 import org.glassfish.jersey.internal.inject.Providers;
 import org.glassfish.jersey.internal.inject.ReferencingFactory;
 import org.glassfish.jersey.internal.util.ReflectionHelper;
@@ -295,6 +296,8 @@ public class WebComponent {
 
             install(new ServiceFinderBinder<>(AsyncContextDelegateProvider.class, applicationProperties, RuntimeType.SERVER));
             install(new ServiceFinderBinder<>(FilterUrlMappingsProvider.class, applicationProperties, RuntimeType.SERVER));
+            install(new ServiceLoaderBinder<>(AsyncContextDelegateProvider.class, applicationProperties, RuntimeType.SERVER));
+            install(new ServiceLoaderBinder<>(FilterUrlMappingsProvider.class, applicationProperties, RuntimeType.SERVER));
         }
     }
 
