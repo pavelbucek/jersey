@@ -5,5 +5,5 @@ module org.glassfish.jersey.examples.simple.console {
 
        exports org.glassfish.jersey.examples.console;
        exports org.glassfish.jersey.examples.console.resources;
-}
 
+}

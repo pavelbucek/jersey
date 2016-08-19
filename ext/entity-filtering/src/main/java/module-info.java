@@ -5,5 +5,5 @@ module org.glassfish.jersey.ext.entity.filtering {
 
        exports org.glassfish.jersey.message.filtering;
        exports org.glassfish.jersey.message.filtering.spi;
-}
 
+}

@@ -4,5 +4,5 @@ module org.glassfish.jersey.examples.system.properties.example {
 
        exports org.glassfish.jersey.examples.sysprops;
        exports org.glassfish.jersey.examples.sysprops.impl;
-}
 
+}

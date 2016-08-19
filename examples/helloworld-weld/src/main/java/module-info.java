@@ -5,5 +5,5 @@ module org.glassfish.jersey.examples.helloworld.weld {
        requires public org.glassfish.jersey.ext.cdi.weld2.se;
 
        exports org.glassfish.jersey.examples.helloworld;
-}
 
+}

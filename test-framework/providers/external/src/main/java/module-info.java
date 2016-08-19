@@ -5,5 +5,5 @@ module org.glassfish.jersey.test.framework.providers.test.framework.provider.ext
        requires public org.glassfish.jersey.test.framework.test.framework.core;
 
        exports org.glassfish.jersey.test.external;
-}
 
+}

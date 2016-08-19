@@ -6,5 +6,5 @@ module org.glassfish.jersey.tests.integration.2988 {
        requires public weld.servlet.core;
 
        exports org.glassfish.jersey.tests.integration.jersey2988;
-}
 
+}

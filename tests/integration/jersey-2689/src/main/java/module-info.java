@@ -8,5 +8,5 @@ module org.glassfish.jersey.tests.integration.2689 {
        requires public org.glassfish.jersey.ext.bean.validation;
 
        exports org.glassfish.jersey.tests.integration.jersey2689;
-}
 
+}

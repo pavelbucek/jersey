@@ -149,9 +149,12 @@ public class ClientConfig implements Configurable<ClientConfig>, ExtendedConfig 
             this.strategy = IDENTITY;
             this.commonConfig = new CommonConfig(RuntimeType.CLIENT, ComponentBag.EXCLUDE_EMPTY);
             this.client = client;
-            final Iterator<ConnectorProvider> iterator = ServiceFinder.find(ConnectorProvider.class).iterator();
-            if (iterator.hasNext()) {
-                this.connectorProvider = iterator.next();
+            final Iterator<ConnectorProvider> serviceFinder = ServiceFinder.find(ConnectorProvider.class).iterator();
+            final Iterator<ConnectorProvider> serviceLoader = java.util.ServiceLoader.load(ConnectorProvider.class).iterator();
+            if (serviceFinder.hasNext()) {
+                this.connectorProvider = serviceFinder.next();
+            } else if(serviceLoader.hasNext()) {
+                this.connectorProvider = serviceLoader.next();
             } else {
                 this.connectorProvider = new HttpUrlConnectorProvider();
             }

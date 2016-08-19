@@ -10,5 +10,7 @@ module org.glassfish.jersey.media.html.json {
 
        exports org.glassfish.jersey.media.htmljson;
        exports org.glassfish.jersey.media.htmljson.internal;
-}
 
+       provides org.glassfish.jersey.internal.spi.AutoDiscoverable with org.glassfish.jersey.media.htmljson.internal.HtmlJsonAutoDiscoverable;
+
+}

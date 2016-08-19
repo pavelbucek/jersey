@@ -6,5 +6,5 @@ module org.glassfish.jersey.examples.sse.twitter.aggregator {
        requires public swing.layout;
 
        exports org.glassfish.jersey.examples.aggregator;
-}
 
+}

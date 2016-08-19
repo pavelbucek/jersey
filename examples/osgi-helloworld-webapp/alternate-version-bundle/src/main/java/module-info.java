@@ -3,5 +3,5 @@ module org.glassfish.jersey.examples.osgi-helloworld-webapp.alternate.version.bu
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.examples.osgi.helloworld.additional.resource;
-}
 
+}

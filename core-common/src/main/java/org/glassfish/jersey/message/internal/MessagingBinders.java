@@ -48,6 +48,7 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.inject.Singleton;
 
 import org.glassfish.jersey.internal.ServiceFinderBinder;
+import org.glassfish.jersey.internal.ServiceLoaderBinder;
 import org.glassfish.jersey.spi.HeaderDelegateProvider;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -113,9 +114,8 @@ public final class MessagingBinders {
             // Message body writers
             bind(StreamingOutputProvider.class).to(MessageBodyWriter.class).in(Singleton.class);
             bind(SourceProvider.SourceWriter.class).to(MessageBodyWriter.class).in(Singleton.class);
-            install(new ServiceFinderBinder<HeaderDelegateProvider>(HeaderDelegateProvider.class, applicationProperties,
-                    runtimeType));
-
+            install(new ServiceFinderBinder<>(HeaderDelegateProvider.class, applicationProperties, runtimeType));
+            install(new ServiceLoaderBinder<>(HeaderDelegateProvider.class, applicationProperties, runtimeType));
         }
 
         private <T extends MessageBodyReader & MessageBodyWriter> void bindSingletonWorker(final Class<T> worker) {

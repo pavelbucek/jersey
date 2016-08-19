@@ -54,6 +54,7 @@ import org.glassfish.jersey.internal.JaxrsProviders;
 import org.glassfish.jersey.internal.JerseyErrorService;
 import org.glassfish.jersey.internal.PropertiesDelegate;
 import org.glassfish.jersey.internal.ServiceFinderBinder;
+import org.glassfish.jersey.internal.ServiceLoaderBinder;
 import org.glassfish.jersey.internal.inject.ContextInjectionResolver;
 import org.glassfish.jersey.internal.inject.JerseyClassAnalyzer;
 import org.glassfish.jersey.internal.inject.ReferencingFactory;
@@ -128,7 +129,8 @@ class ClientBinder extends AbstractBinder {
                 new MessageBodyFactory.Binder(),
                 new ContextResolverFactory.Binder(),
                 new JaxrsProviders.Binder(),
-                new ServiceFinderBinder<AutoDiscoverable>(AutoDiscoverable.class, clientRuntimeProperties, RuntimeType.CLIENT));
+                new ServiceFinderBinder<>(AutoDiscoverable.class, clientRuntimeProperties, RuntimeType.CLIENT),
+                new ServiceLoaderBinder<>(AutoDiscoverable.class, clientRuntimeProperties, RuntimeType.CLIENT));
 
         bindFactory(ReferencingFactory.<ClientConfig>referenceFactory()).to(new TypeLiteral<Ref<ClientConfig>>() {
         }).in(RequestScoped.class);

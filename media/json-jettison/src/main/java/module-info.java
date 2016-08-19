@@ -7,5 +7,5 @@ module org.glassfish.jersey.media.media.json.jettison {
        exports org.glassfish.jersey.jettison;
        exports org.glassfish.jersey.jettison.internal;
        exports org.glassfish.jersey.jettison.internal.entity;
-}
 
+}

@@ -4,5 +4,5 @@ module org.glassfish.jersey.examples.freemarker.webapp {
 
        exports org.glassfish.jersey.examples.freemarker;
        exports org.glassfish.jersey.examples.freemarker.resources;
-}
 
+}

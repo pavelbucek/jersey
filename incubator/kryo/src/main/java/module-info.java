@@ -6,5 +6,7 @@ module org.glassfish.jersey.media.media.kryo {
 
        exports org.glassfish.jersey.kryo;
        exports org.glassfish.jersey.kryo.internal;
-}
 
+       provides org.glassfish.jersey.internal.spi.AutoDiscoverable with org.glassfish.jersey.kryo.internal.KryoAutoDiscoverable;
+
+}

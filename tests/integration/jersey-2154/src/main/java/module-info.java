@@ -6,5 +6,5 @@ module org.glassfish.jersey.tests.integration.2154 {
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.tests.integration.jersey2154;
-}
 
+}

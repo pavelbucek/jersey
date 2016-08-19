@@ -9,5 +9,5 @@ module org.glassfish.jersey.examples.extended.wadl.webapp {
        exports org.glassfish.jersey.examples.extendedwadl;
        exports org.glassfish.jersey.examples.extendedwadl.resources;
        exports org.glassfish.jersey.examples.extendedwadl.util;
-}
 
+}

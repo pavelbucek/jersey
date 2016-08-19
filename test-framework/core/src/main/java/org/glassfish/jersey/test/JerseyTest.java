@@ -42,6 +42,7 @@ package org.glassfish.jersey.test;
 import java.net.URI;
 import java.security.AccessController;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,13 +50,18 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -484,17 +490,30 @@ public abstract class JerseyTest {
 
                 defaultTestContainerFactoryClass = loadFactoryClass(factoryClassName);
             } else {
-                final TestContainerFactory[] factories = ServiceFinder.find(TestContainerFactory.class).toArray();
-                if (factories.length > 0) {
+                Iterable<TestContainerFactory> factoriesFinder = ServiceFinder.find(TestContainerFactory.class);
+                Iterable<TestContainerFactory> factoriesLoader = ServiceLoader.load(TestContainerFactory.class);
+
+                List<TestContainerFactory> factories = Arrays
+                        .asList(factoriesFinder, factoriesLoader)
+                        .stream()
+                        .flatMap(new Function<Iterable<TestContainerFactory>, Stream<TestContainerFactory>>() {
+                            @Override
+                            public Stream<TestContainerFactory> apply(Iterable<TestContainerFactory> factories) {
+                                return StreamSupport.stream(factories.spliterator(), false);
+                            }
+                        })
+                        .collect(Collectors.toList());
+
+                if (factories.size() > 0) {
                     // if there is only one factory instance, just return it
-                    if (factories.length == 1) {
+                    if (factories.size() == 1) {
                         // cache the class for future reuse
-                        defaultTestContainerFactoryClass = factories[0].getClass();
+                        defaultTestContainerFactoryClass = factories.get(0).getClass();
                         LOGGER.log(
                                 Level.CONFIG,
                                 "Using the single found TestContainerFactory service provider '{0}'",
                                 defaultTestContainerFactoryClass.getName());
-                        return factories[0];
+                        return factories.get(0);
                     }
 
                     // if default factory is present, use it.
@@ -512,12 +531,12 @@ public abstract class JerseyTest {
 
                     // default factory is not in the list - log warning and return the first found factory instance
                     // cache the class for future reuse
-                    defaultTestContainerFactoryClass = factories[0].getClass();
+                    defaultTestContainerFactoryClass = factories.get(0).getClass();
                     LOGGER.log(
                             Level.WARNING,
                             "Found multiple TestContainerFactory service providers, using the first found '{0}'",
                             defaultTestContainerFactoryClass.getName());
-                    return factories[0];
+                    return factories.get(0);
                 }
 
                 LOGGER.log(

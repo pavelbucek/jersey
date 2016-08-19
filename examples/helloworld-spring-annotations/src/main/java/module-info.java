@@ -6,5 +6,5 @@ module org.glassfish.jersey.examples.helloworld.spring.annotations {
        requires public spring.web;
 
        exports org.glassfish.jersey.examples.hello.spring.annotations;
-}
 
+}

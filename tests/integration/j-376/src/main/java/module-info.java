@@ -12,5 +12,5 @@ module org.glassfish.jersey.tests.integration.j.376 {
        requires public validation.api;
 
        exports org.glassfish.jersey.tests.integration.j376;
-}
 
+}

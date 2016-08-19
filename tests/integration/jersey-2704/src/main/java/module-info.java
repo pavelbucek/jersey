@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.2704 {
 
        exports org.glassfish.jersey.tests.integration.jersey2704;
        exports org.glassfish.jersey.tests.integration.jersey2704.services;
-}
 
+}

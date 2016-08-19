@@ -5,5 +5,5 @@ module org.glassfish.jersey.examples.server.async.standalone.client {
        requires public swing.layout;
 
        exports org.glassfish.jersey.examples.server.async;
-}
 
+}

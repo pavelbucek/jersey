@@ -4,5 +4,5 @@ module org.glassfish.jersey.examples.java8.webapp {
 
        exports org.glassfish.jersey.examples.java8;
        exports org.glassfish.jersey.examples.java8.resources;
-}
 
+}

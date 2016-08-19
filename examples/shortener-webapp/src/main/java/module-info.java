@@ -9,5 +9,5 @@ module org.glassfish.jersey.examples.shortener.webapp {
        exports org.glassfish.jersey.examples.shortener.webapp.resource;
        exports org.glassfish.jersey.examples.shortener.webapp.service;
        exports org.glassfish.jersey.examples.shortener.webapp.validation;
-}
 
+}

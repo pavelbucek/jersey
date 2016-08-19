@@ -50,6 +50,7 @@ import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
@@ -599,6 +600,12 @@ public class CommonConfig implements FeatureContext, ExtendedConfig {
                     .toClassArray()) {
                 forcedAutoDiscroverables.add(locator.createAndInitialize(forcedADType));
             }
+
+            for (ForcedAutoDiscoverable forcedAD : ServiceLoader.load(ForcedAutoDiscoverable.class)) {
+                locator.inject(forcedAD);
+                forcedAutoDiscroverables.add(forcedAD);
+            }
+
             providers.addAll(forcedAutoDiscroverables);
 
             // Regular.

@@ -10,5 +10,5 @@ module org.glassfish.jersey.examples.rx.client.java8.webapp {
        exports org.glassfish.jersey.examples.rx.agent;
        exports org.glassfish.jersey.examples.rx.domain;
        exports org.glassfish.jersey.examples.rx.remote;
-}
 
+}

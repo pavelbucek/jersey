@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.2892 {
        requires public org.glassfish.jersey.media.media.moxy;
 
        exports org.glassfish.jersey.tests.integration.jersey2892;
-}
 
+}

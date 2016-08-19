@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.servlet.3.init.4 {
 
        exports org.glassfish.jersey.tests.integration.servlet_3_init_4;
        exports org.glassfish.jersey.tests.integration.servlet_3_init_4.resource;
-}
 
+}

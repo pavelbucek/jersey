@@ -6,5 +6,5 @@ module org.glassfish.jersey.examples.https.clientserver.grizzly {
        requires public org.glassfish.jersey.core.client;
 
        exports org.glassfish.jersey.examples.httpsclientservergrizzly;
-}
 
+}

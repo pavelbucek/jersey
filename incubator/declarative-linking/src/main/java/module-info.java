@@ -7,5 +7,5 @@ module org.glassfish.jersey.ext.declarative.linking {
 
        exports org.glassfish.jersey.linking;
        exports org.glassfish.jersey.linking.mapping;
-}
 
+}

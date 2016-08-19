@@ -10,5 +10,5 @@ module org.glassfish.jersey.examples.entity.filtering.security {
        exports org.glassfish.jersey.examples.entityfiltering.security.domain;
        exports org.glassfish.jersey.examples.entityfiltering.security.provider;
        exports org.glassfish.jersey.examples.entityfiltering.security.resource;
-}
 
+}

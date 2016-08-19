@@ -19,5 +19,5 @@ module org.glassfish.jersey.examples.feed.combiner.java8.webapp {
        exports org.glassfish.jersey.examples.feedcombiner.resources;
        exports org.glassfish.jersey.examples.feedcombiner.service;
        exports org.glassfish.jersey.examples.feedcombiner.store;
-}
 
+}

@@ -5,5 +5,5 @@ module org.glassfish.jersey.security.oauth1.server {
 
        exports org.glassfish.jersey.server.oauth1;
        exports org.glassfish.jersey.server.oauth1.internal;
-}
 
+}

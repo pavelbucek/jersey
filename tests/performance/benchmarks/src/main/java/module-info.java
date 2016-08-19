@@ -11,5 +11,5 @@ module org.glassfish.jersey.tests.performance.performance.test.benchmarks {
        exports org.glassfish.jersey.tests.performance.benchmark;
        exports org.glassfish.jersey.tests.performance.benchmark.entity.json;
        exports org.glassfish.jersey.tests.performance.benchmark.server;
-}
 
+}

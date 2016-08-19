@@ -8,5 +8,5 @@ module org.glassfish.jersey.test.performance.monitoring.monitoring {
        requires public slf4j.jdk14;
 
        exports org.glassfish.jersey.tests.performance.monitoring;
-}
 
+}

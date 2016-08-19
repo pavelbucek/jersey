@@ -39,6 +39,13 @@
  */
 package org.glassfish.jersey.servlet.internal;
 
+import java.util.Arrays;
+import java.util.ServiceLoader;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import org.glassfish.jersey.internal.ServiceFinder;
 import org.glassfish.jersey.servlet.internal.spi.ServletContainerProvider;
 
@@ -63,7 +70,19 @@ public final class ServletContainerProviderFactory {
     public static ServletContainerProvider[] getAllServletContainerProviders() {
         // TODO Instances of ServletContainerProvider could be cached, maybe. ???
         // TODO Check if META-INF/services lookup is enabled. ???
-        return ServiceFinder.find(ServletContainerProvider.class).toArray();
-    }
 
+
+        Iterable<ServletContainerProvider> serviceFinder = ServiceFinder.find(ServletContainerProvider.class);
+        Iterable<ServletContainerProvider> serviceLoader = ServiceLoader.load(ServletContainerProvider.class);
+
+        return Arrays.asList(serviceFinder, serviceLoader)
+              .stream()
+              .flatMap(new Function<Iterable<ServletContainerProvider>, Stream<ServletContainerProvider>>() {
+                  @Override
+                  public Stream<ServletContainerProvider> apply(Iterable<ServletContainerProvider> servletContainerProviders) {
+                      return StreamSupport.stream(servletContainerProviders.spliterator(), false);
+                  }
+              })
+              .collect(Collectors.toList()).toArray(new ServletContainerProvider[0]);
+    }
 }

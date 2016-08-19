@@ -4,5 +4,5 @@ module org.glassfish.jersey.tests.memleaks.redeployment.redeployment.leaking.tes
        requires public org.glassfish.jersey.containers.container.servlet;
 
        exports org.glassfish.jersey.tests.memleaks.testleak;
-}
 
+}

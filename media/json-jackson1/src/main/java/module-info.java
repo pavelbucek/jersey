@@ -7,5 +7,5 @@ module org.glassfish.jersey.media.media.json.jackson1 {
        requires public org.glassfish.jersey.core.common;
 
        exports org.glassfish.jersey.jackson1;
-}
 
+}

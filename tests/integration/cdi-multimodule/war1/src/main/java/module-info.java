@@ -6,5 +6,5 @@ module org.glassfish.jersey.tests.integration.cdi.multimodule.war1 {
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.tests.integration.multimodule.cdi.web1;
-}
 
+}

@@ -1,12 +1,11 @@
 module org.glassfish.jersey.core.common {
 
-        requires public java.logging; // X
-        requires public java.desktop; // X
-        requires public java.activation; // X
-
        requires public hk2.api;
        requires public hk2.locator;
-        requires public hk2.utils; // X
+       requires public hk2.utils; //;
+       requires public java.activation; //;
+       requires public java.desktop; //;
+       requires public java.logging; //;
        requires public javax.annotation.api;
        requires public javax.inject;
        requires public javax.ws.rs.api;
@@ -32,5 +31,10 @@ module org.glassfish.jersey.core.common {
        exports org.glassfish.jersey.spi;
        exports org.glassfish.jersey.uri;
        exports org.glassfish.jersey.uri.internal;
-}
 
+        uses org.glassfish.jersey.internal.spi.ForcedAutoDiscoverable;
+        uses org.glassfish.jersey.spi.HeaderDelegateProvider;
+
+       provides org.glassfish.jersey.internal.spi.AutoDiscoverable with org.glassfish.jersey.logging.LoggingFeatureAutoDiscoverable;
+
+}

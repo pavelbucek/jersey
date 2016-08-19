@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.ejb.multimodule.lib {
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.tests.integration.multimodule.ejb.lib;
-}
 
+}

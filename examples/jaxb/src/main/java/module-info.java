@@ -4,5 +4,5 @@ module org.glassfish.jersey.examples.jaxb {
        requires public woodstox.core.asl;
 
        exports org.glassfish.jersey.examples.jaxb;
-}
 
+}

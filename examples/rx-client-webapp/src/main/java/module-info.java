@@ -9,5 +9,5 @@ module org.glassfish.jersey.examples.rx.client.webapp {
        exports org.glassfish.jersey.examples.rx.agent;
        exports org.glassfish.jersey.examples.rx.domain;
        exports org.glassfish.jersey.examples.rx.remote;
-}
 
+}

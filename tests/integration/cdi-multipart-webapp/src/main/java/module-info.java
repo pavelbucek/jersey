@@ -6,5 +6,5 @@ module org.glassfish.jersey.tests.integration.cdi.multipart.webapp {
        requires public org.glassfish.jersey.media.media.multipart;
 
        exports org.glassfish.jersey.tests.cdi.resources;
-}
 
+}

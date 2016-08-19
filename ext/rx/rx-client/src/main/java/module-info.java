@@ -4,5 +4,6 @@ module org.glassfish.jersey.ext.rx.rx.client {
 
        exports org.glassfish.jersey.client.rx;
        exports org.glassfish.jersey.client.rx.spi;
-}
 
+        uses org.glassfish.jersey.client.rx.spi.RxInvokerProvider;
+}

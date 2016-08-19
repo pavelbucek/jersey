@@ -9,5 +9,5 @@ module org.glassfish.jersey.examples.entity.filtering.selectable {
        exports org.glassfish.jersey.examples.entityfiltering.selectable;
        exports org.glassfish.jersey.examples.entityfiltering.selectable.domain;
        exports org.glassfish.jersey.examples.entityfiltering.selectable.resource;
-}
 
+}

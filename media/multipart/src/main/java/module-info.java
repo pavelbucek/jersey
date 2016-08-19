@@ -7,5 +7,5 @@ module org.glassfish.jersey.media.media.multipart {
        exports org.glassfish.jersey.media.multipart;
        exports org.glassfish.jersey.media.multipart.file;
        exports org.glassfish.jersey.media.multipart.internal;
-}
 
+}

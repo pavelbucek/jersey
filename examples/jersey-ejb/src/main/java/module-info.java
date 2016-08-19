@@ -6,5 +6,5 @@ module org.glassfish.jersey.examples.ejb {
        exports org.glassfish.jersey.examples.jersey_ejb.entities;
        exports org.glassfish.jersey.examples.jersey_ejb.exceptions;
        exports org.glassfish.jersey.examples.jersey_ejb.resources;
-}
 
+}

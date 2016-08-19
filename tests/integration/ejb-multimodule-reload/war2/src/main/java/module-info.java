@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.ejb.multimodule.reload.war2 {
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.tests.integration.multimodule.ejb.reload.web2;
-}
 
+}

@@ -41,7 +41,7 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -67,6 +67,29 @@
                     <enableAssertions>false</enableAssertions>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6-jigsaw-SNAPSHOT</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-addmods java.se.ee</arg>
+                        <!--<arg>-Xlint:all,-options,-path</arg>-->
+                    </compilerArgs>
+                    <compilerArguments>
+                        <addmods>java.se.ee</addmods>
+                        <!--<Werror />-->
+                        <!-- TODO work towards eliminating all warnings in order to be able to enable the -Xlint option -->
+                        <!--Xlint/-->
+                    </compilerArguments>
+                    <showWarnings>false</showWarnings>
+                    <fork>false</fork>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

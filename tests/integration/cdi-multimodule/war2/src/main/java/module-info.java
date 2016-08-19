@@ -5,5 +5,5 @@ module org.glassfish.jersey.tests.integration.cdi.multimodule.war2 {
        requires public javax.ws.rs.api;
 
        exports org.glassfish.jersey.tests.integration.multimodule.cdi.web2;
-}
 
+}

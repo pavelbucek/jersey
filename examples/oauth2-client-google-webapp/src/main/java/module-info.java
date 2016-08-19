@@ -13,5 +13,5 @@ module org.glassfish.jersey.examples.oauth2.client.google.webapp {
        exports org.glassfish.jersey.examples.oauth2.googleclient.entity;
        exports org.glassfish.jersey.examples.oauth2.googleclient.model;
        exports org.glassfish.jersey.examples.oauth2.googleclient.resource;
-}
 
+}

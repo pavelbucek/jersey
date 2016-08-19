@@ -11,5 +11,5 @@ module org.glassfish.jersey.examples.declarative.linking {
        exports org.glassfish.jersey.examples.linking.model;
        exports org.glassfish.jersey.examples.linking.representation;
        exports org.glassfish.jersey.examples.linking.resources;
-}
 
+}

@@ -11,5 +11,8 @@ module org.glassfish.jersey.core.client {
        exports org.glassfish.jersey.client.filter;
        exports org.glassfish.jersey.client.internal;
        exports org.glassfish.jersey.client.spi;
-}
 
+        uses org.glassfish.jersey.client.spi.ConnectorProvider;
+        uses org.glassfish.jersey.client.spi.DefaultSslContextProvider;
+        uses org.glassfish.jersey.internal.spi.AutoDiscoverable;
+}

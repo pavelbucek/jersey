@@ -4,5 +4,5 @@ module org.glassfish.jersey.tests.integration.servlet.2.5.init.2 {
 
        exports org.glassfish.jersey.tests.integration.servlet_25_init_2;
        exports org.glassfish.jersey.tests.integration.servlet_25_init_2.ext;
-}
 
+}

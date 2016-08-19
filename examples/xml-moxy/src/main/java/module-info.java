@@ -5,5 +5,5 @@ module org.glassfish.jersey.examples.xml.moxy {
 
        exports org.glassfish.jersey.examples.xmlmoxy;
        exports org.glassfish.jersey.examples.xmlmoxy.beans;
-}
 
+}

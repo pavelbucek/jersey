@@ -8,5 +8,5 @@ module org.glassfish.jersey.examples.bean.validation.webapp {
        exports org.glassfish.jersey.examples.beanvalidation.webapp.domain;
        exports org.glassfish.jersey.examples.beanvalidation.webapp.resource;
        exports org.glassfish.jersey.examples.beanvalidation.webapp.service;
-}
 
+}

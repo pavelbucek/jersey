@@ -6,5 +6,5 @@ module org.glassfish.jersey.security.oauth1.client {
        requires public org.glassfish.jersey.security.oauth1.signature;
 
        exports org.glassfish.jersey.client.oauth1;
-}
 
+}

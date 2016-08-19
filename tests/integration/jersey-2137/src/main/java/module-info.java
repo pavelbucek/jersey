@@ -7,5 +7,5 @@ module org.glassfish.jersey.tests.integration.2137 {
        requires public persistence.api;
 
        exports org.glassfish.jersey.tests.integration.jersey2137;
-}
 
+}

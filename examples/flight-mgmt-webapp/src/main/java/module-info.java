@@ -14,5 +14,5 @@ module org.glassfish.jersey.examples.flight.management.webapp {
        exports org.glassfish.jersey.examples.flight.providers;
        exports org.glassfish.jersey.examples.flight.resources;
        exports org.glassfish.jersey.examples.flight.validation;
-}
 
+}

@@ -4,5 +4,5 @@ module org.glassfish.jersey.examples.osgi-helloworld-webapp.additional.bundle {
 
        exports org.glassfish.jersey.examples.osgi.helloworld.additional.resource;
        exports org.glassfish.jersey.examples.osgi.helloworld.additional.resource.subpackage;
-}
 
+}

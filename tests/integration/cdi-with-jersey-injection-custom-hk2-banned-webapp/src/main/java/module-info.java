@@ -9,5 +9,5 @@ module org.glassfish.jersey.tests.integration.cdi.with.injection.custom.hk2.bann
        requires public org.glassfish.jersey.ext.cdi.cdi1x.transaction;
 
        exports org.glassfish.jersey.tests.cdi.resources;
-}
 
+}
