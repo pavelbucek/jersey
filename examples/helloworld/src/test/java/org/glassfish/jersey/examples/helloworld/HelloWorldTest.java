@@ -62,7 +62,6 @@ import org.glassfish.jersey.test.util.runner.RunSeparately;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -110,6 +109,13 @@ public class HelloWorldTest extends JerseyTest {
 
     @Test
     public void testClientStringResponse() {
+
+        ClientBuilder.newClient()
+                     .target("http://localhost:8080")
+                     .path("helloworld")
+                     .request()
+                     .get(String.class);
+
         String s = target().path(App.ROOT_PATH).request().get(String.class);
         assertEquals(HelloWorldResource.CLICHED_MESSAGE, s);
     }

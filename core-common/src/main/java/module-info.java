@@ -9,12 +9,13 @@ module org.glassfish.jersey.core.common {
        requires public javax.annotation.api;
        requires public javax.inject;
        requires public javax.ws.rs.api;
-       requires public jersey.guava;
+       // requires public jersey.guava;
        requires public org.osgi.core;
        requires public osgi.resource.locator;
 
        exports org.glassfish.jersey;
        exports org.glassfish.jersey.internal;
+       exports org.glassfish.jersey.internal.guava;
        exports org.glassfish.jersey.internal.inject;
        exports org.glassfish.jersey.internal.l10n;
        exports org.glassfish.jersey.internal.sonar;
@@ -30,7 +31,7 @@ module org.glassfish.jersey.core.common {
        exports org.glassfish.jersey.process.internal;
        exports org.glassfish.jersey.spi;
        exports org.glassfish.jersey.uri;
-       exports org.glassfish.jersey.uri.internal;
+
 
         uses org.glassfish.jersey.internal.spi.ForcedAutoDiscoverable;
         uses org.glassfish.jersey.spi.HeaderDelegateProvider;
