@@ -1,19 +1,19 @@
 module org.glassfish.jersey.containers.glassfish.gf.ejb {
 
-       requires public config.api;
-       requires public container.common;
-       requires public deployment.common;
-       requires public dol;
-       requires public ejb.container;
-       requires public hk2.config;
-       requires public internal.api;
-       requires public javax.ejb.api;
-       requires public javax.inject;
-       requires public javax.interceptor.api;
-       requires public javax.ws.rs.api;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
-       requires public org.glassfish.jersey.ext.cdi.cdi1x;
+       requires transitive config.api;
+       requires transitive container.common;
+       requires transitive deployment.common;
+       requires transitive dol;
+       requires transitive ejb.container;
+       requires transitive hk2.config;
+       requires transitive internal.api;
+       requires transitive javax.ejb.api;
+       requires transitive javax.inject;
+       requires transitive javax.interceptor.api;
+       requires transitive javax.ws.rs.api;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive org.glassfish.jersey.ext.cdi.cdi1x;
 
        exports org.glassfish.jersey.gf.ejb.internal;
 

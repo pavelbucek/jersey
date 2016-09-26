@@ -1,17 +1,17 @@
 module org.glassfish.jersey.core.server {
 
-       requires public asm.debug.all;
-       requires public hk2.api;
-       requires public hk2.locator;
-       requires public java.management;
-       requires public javax.annotation.api;
-       requires public javax.inject;
-       requires public javax.ws.rs.api;
-       requires public org.glassfish.jersey.core.client;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.media.media.jaxb;
-       requires public org.osgi.core;
-       requires public validation.api;
+       requires transitive asm.debug.all;
+       requires transitive hk2.api;
+       requires transitive hk2.locator;
+       requires transitive java.management;
+       requires transitive javax.annotation.api;
+       requires transitive javax.inject;
+       requires transitive javax.ws.rs.api;
+       requires transitive org.glassfish.jersey.core.client;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.media.media.jaxb;
+       requires transitive org.osgi.core;
+       requires transitive validation.api;
 
        exports com.sun.research.ws.wadl;
        exports org.glassfish.jersey.server;
@@ -38,6 +38,14 @@ module org.glassfish.jersey.core.server {
        exports org.glassfish.jersey.server.wadl.internal.generators.resourcedoc.model;
        exports org.glassfish.jersey.server.wadl.internal.generators.resourcedoc.xhtml;
        exports org.glassfish.jersey.server.wadl.processor;
+
+        exports private org.glassfish.jersey.server.internal.inject to hk2.utils, hk2.locator;
+        exports private org.glassfish.jersey.server.internal to hk2.utils, hk2.locator;
+        exports private org.glassfish.jersey.server.internal.process to hk2.locator;
+        exports private org.glassfish.jersey.server.model.internal to hk2.utils, hk2.locator;
+        exports private org.glassfish.jersey.server.model to hk2.utils, hk2.locator;
+        exports private org.glassfish.jersey.server to hk2.utils, hk2.locator;
+        exports private org.glassfish.jersey.server.wadl.processor to hk2.utils, hk2.locator;
 
         uses org.glassfish.jersey.server.spi.ComponentProvider;
         uses org.glassfish.jersey.server.spi.ContainerProvider;

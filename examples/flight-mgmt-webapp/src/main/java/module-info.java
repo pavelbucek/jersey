@@ -1,11 +1,11 @@
 module org.glassfish.jersey.examples.flight.management.webapp {
 
-       requires public org.glassfish.jersey.containers.container.servlet;
-       requires public org.glassfish.jersey.ext.bean.validation;
-       requires public org.glassfish.jersey.ext.mvc.bean.validation;
-       requires public org.glassfish.jersey.ext.mvc.freemarker;
-       requires public org.glassfish.jersey.media.media.moxy;
-       requires public org.glassfish.jersey.media.media.sse;
+       requires transitive org.glassfish.jersey.containers.container.servlet;
+       requires transitive org.glassfish.jersey.ext.bean.validation;
+       requires transitive org.glassfish.jersey.ext.mvc.bean.validation;
+       requires transitive org.glassfish.jersey.ext.mvc.freemarker;
+       requires transitive org.glassfish.jersey.media.media.moxy;
+       requires transitive org.glassfish.jersey.media.media.sse;
 
        exports org.glassfish.jersey.examples.flight;
        exports org.glassfish.jersey.examples.flight.filtering;

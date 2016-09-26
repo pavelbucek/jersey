@@ -1,10 +1,10 @@
 module org.glassfish.jersey.containers.container.simple.http {
 
-       requires public javax.inject;
-       requires public javax.ws.rs.api;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
-       requires public simple;
+       requires transitive javax.inject;
+       requires transitive javax.ws.rs.api;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive simple;
 
        exports org.glassfish.jersey.simple;
 

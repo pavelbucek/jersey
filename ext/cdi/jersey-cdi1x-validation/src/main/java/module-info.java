@@ -1,9 +1,9 @@
 module org.glassfish.jersey.ext.cdi.cdi1x.validation {
 
-       requires public cdi.api;
-       requires public hibernate.validator.cdi;
-       requires public javax.interceptor.api;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive cdi.api;
+       requires transitive hibernate.validator.cdi;
+       requires transitive javax.interceptor.api;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.ext.cdi1x.validation.internal;
 

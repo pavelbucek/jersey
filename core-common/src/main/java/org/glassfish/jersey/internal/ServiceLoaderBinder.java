@@ -91,7 +91,7 @@ public class ServiceLoaderBinder<T> extends AbstractBinder {
         }
         // TODO introduce disable modules lookup
         if (!disableMetainfServicesLookup) {
-            for (T t : ServiceLoader.load(contract)) {
+            for (T t : ServiceLoader .load(contract)) {
                 // we are throwing away returned instance, since it needs to be registered as a class - it can have
                 // different scope than a singleton.
                 bind(t.getClass()).to(contract);

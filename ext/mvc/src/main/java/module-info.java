@@ -1,7 +1,7 @@
 module org.glassfish.jersey.ext.mvc {
 
-       requires public javax.servlet.api;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive javax.servlet.api;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.server.mvc;
        exports org.glassfish.jersey.server.mvc.internal;

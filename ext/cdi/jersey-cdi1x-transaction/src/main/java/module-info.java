@@ -1,9 +1,9 @@
 module org.glassfish.jersey.ext.cdi.cdi1x.transaction {
 
-       requires public javax.interceptor.api;
-       requires public javax.transaction.api;
-       requires public org.glassfish.jersey.core.server;
-       requires public org.glassfish.jersey.ext.cdi.cdi1x;
+       requires transitive javax.interceptor.api;
+       requires transitive javax.transaction.api;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive org.glassfish.jersey.ext.cdi.cdi1x;
 
        exports org.glassfish.jersey.ext.cdi1x.transaction.internal;
 

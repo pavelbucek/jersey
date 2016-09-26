@@ -1,10 +1,10 @@
 module org.glassfish.jersey.media.media.moxy {
 
-       requires public java.xml;
-       requires public org.eclipse.persistence.core;
-       requires public org.eclipse.persistence.moxy;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.ext.entity.filtering;
+       requires transitive java.xml;
+       requires transitive org.eclipse.persistence.core;
+       requires transitive org.eclipse.persistence.moxy;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.ext.entity.filtering;
 
        exports org.glassfish.jersey.moxy.internal;
        exports org.glassfish.jersey.moxy.json;

@@ -1,9 +1,9 @@
 module org.glassfish.jersey.ext.cdi.weld2.se {
 
-       requires public org.glassfish.jersey.core.server;
-       requires public org.glassfish.jersey.ext.cdi.cdi1x;
-       requires public weld.api;
-       requires public weld.se.core;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive org.glassfish.jersey.ext.cdi.cdi1x;
+       requires transitive weld.api;
+       requires transitive weld.se.core;
 
        exports org.glassfish.jersey.weld.se;
 

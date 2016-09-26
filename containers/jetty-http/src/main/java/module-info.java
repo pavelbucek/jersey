@@ -1,14 +1,14 @@
 module org.glassfish.jersey.containers.container.jetty.http {
 
-       requires public javax.inject;
-       requires public javax.servlet.api;
-       requires public javax.ws.rs.api;
-       requires public jetty.continuation;
-       requires public jetty.http;
-       requires public jetty.server;
-       requires public jetty.util;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive javax.inject;
+       requires transitive javax.servlet.api;
+       requires transitive javax.ws.rs.api;
+       requires transitive jetty.continuation;
+       requires transitive jetty.http;
+       requires transitive jetty.server;
+       requires transitive jetty.util;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.jetty;
 

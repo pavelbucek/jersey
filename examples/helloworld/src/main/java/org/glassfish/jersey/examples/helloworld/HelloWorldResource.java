@@ -47,18 +47,14 @@ import javax.ws.rs.Produces;
  *
  * @author Jakub Podlesak (jakub.podlesak at oracle.com)
  */
+@Path("helloworld")
+public class HelloWorldResource {
+    public static final String CLICHED_MESSAGE = "Hello World!";
 
+    @GET
+    @Produces("text/plain")
+    public String getHello() {
+        return CLICHED_MESSAGE;
+    }
 
-
-
-
-                @Path("helloworld")
-                public class HelloWorldResource {
-
-                    @GET
-                    @Produces("text/plain")
-                    public String getHello() {
-                        return "Hello World!";
-                    }
-
-                }
+}

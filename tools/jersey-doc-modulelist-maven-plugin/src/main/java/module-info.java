@@ -1,9 +1,9 @@
 module org.glassfish.jersey.tools.plugins.doc.modulelist.maven.plugin {
 
-       requires public maven.artifact;
-       requires public maven.core;
-       requires public maven.dependency.tree;
-       requires public maven.plugin.api;
+       requires transitive maven.artifact;
+       requires transitive maven.core;
+       requires transitive maven.dependency.tree;
+       requires transitive maven.plugin.api;
 
        exports org.glassfish.jersey.tools.plugins;
 

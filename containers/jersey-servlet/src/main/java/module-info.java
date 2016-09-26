@@ -1,10 +1,10 @@
 module org.glassfish.jersey.containers.container.servlet {
 
-       requires public javax.servlet.api;
-       requires public javax.ws.rs.api;
-       requires public org.glassfish.jersey.containers.container.servlet.core;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive javax.servlet.api;
+       requires transitive javax.ws.rs.api;
+       requires transitive org.glassfish.jersey.containers.container.servlet.core;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.servlet.async;
        exports org.glassfish.jersey.servlet.init;

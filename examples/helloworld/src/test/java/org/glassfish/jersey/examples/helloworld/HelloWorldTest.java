@@ -65,7 +65,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(ConcurrentRunner.class)
+// @RunWith(ConcurrentRunner.class)
 public class HelloWorldTest extends JerseyTest {
 
     @Override
@@ -111,7 +111,7 @@ public class HelloWorldTest extends JerseyTest {
     public void testClientStringResponse() {
 
         ClientBuilder.newClient()
-                     .target("http://localhost:8080")
+                     .target("http://localhost:9998")
                      .path("helloworld")
                      .request()
                      .get(String.class);

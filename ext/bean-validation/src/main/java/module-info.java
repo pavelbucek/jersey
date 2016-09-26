@@ -1,12 +1,12 @@
 module org.glassfish.jersey.ext.bean.validation {
 
-       requires public hibernate.validator;
-       requires public javax.el;
-       requires public javax.el.api;
-       requires public javax.inject;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
-       requires public validation.api;
+       requires transitive hibernate.validator;
+       requires transitive javax.el;
+       requires transitive javax.el.api;
+       requires transitive javax.inject;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive validation.api;
 
        exports org.glassfish.jersey.server.validation;
        exports org.glassfish.jersey.server.validation.internal;

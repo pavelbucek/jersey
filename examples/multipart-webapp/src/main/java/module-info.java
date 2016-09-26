@@ -1,7 +1,7 @@
 module org.glassfish.jersey.examples.multipart.webapp {
 
-       requires public org.glassfish.jersey.containers.container.servlet.core;
-       requires public org.glassfish.jersey.media.media.multipart;
+       requires transitive org.glassfish.jersey.containers.container.servlet.core;
+       requires transitive org.glassfish.jersey.media.media.multipart;
 
        exports org.glassfish.jersey.examples.multipart.webapp;
 

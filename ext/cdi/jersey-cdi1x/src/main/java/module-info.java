@@ -1,8 +1,8 @@
 module org.glassfish.jersey.ext.cdi.cdi1x {
 
-       requires public cdi.api;
-       requires public java.naming;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive cdi.api;
+       requires transitive java.naming;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.ext.cdi1x.internal;
        exports org.glassfish.jersey.ext.cdi1x.internal.spi;

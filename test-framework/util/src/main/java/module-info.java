@@ -1,8 +1,8 @@
 module org.glassfish.jersey.test.framework.test.framework.util {
 
-       requires public junit;
-       requires public org.glassfish.jersey.core.client;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive junit;
+       requires transitive org.glassfish.jersey.core.client;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.test.util.client;
        exports org.glassfish.jersey.test.util.runner;

@@ -1,9 +1,9 @@
 module org.glassfish.jersey.ext.declarative.linking {
 
-       requires public javax.el;
-       requires public javax.el.api;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
+       requires transitive javax.el;
+       requires transitive javax.el.api;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
 
        exports org.glassfish.jersey.linking;
        exports org.glassfish.jersey.linking.mapping;

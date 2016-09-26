@@ -1,14 +1,14 @@
 module org.glassfish.jersey.examples.feed.combiner.java8.webapp {
 
-       requires public logback.classic;
-       requires public logback.core;
-       requires public org.glassfish.jersey.containers.container.grizzly2.http;
-       requires public org.glassfish.jersey.ext.bean.validation;
-       requires public org.glassfish.jersey.ext.mvc.bean.validation;
-       requires public org.glassfish.jersey.ext.mvc.freemarker;
-       requires public org.glassfish.jersey.media.media.moxy;
-       requires public rome;
-       requires public slf4j.api;
+       requires transitive logback.classic;
+       requires transitive logback.core;
+       requires transitive org.glassfish.jersey.containers.container.grizzly2.http;
+       requires transitive org.glassfish.jersey.ext.bean.validation;
+       requires transitive org.glassfish.jersey.ext.mvc.bean.validation;
+       requires transitive org.glassfish.jersey.ext.mvc.freemarker;
+       requires transitive org.glassfish.jersey.media.media.moxy;
+       requires transitive rome;
+       requires transitive slf4j.api;
 
        exports org.glassfish.jersey.examples.feedcombiner;
        exports org.glassfish.jersey.examples.feedcombiner.binder;

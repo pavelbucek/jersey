@@ -1,7 +1,7 @@
 module org.glassfish.jersey.ext.mvc.freemarker {
 
-       requires public freemarker;
-       requires public org.glassfish.jersey.ext.mvc;
+       requires transitive freemarker;
+       requires transitive org.glassfish.jersey.ext.mvc;
 
        exports org.glassfish.jersey.server.mvc.freemarker;
 

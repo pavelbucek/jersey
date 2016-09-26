@@ -1,12 +1,12 @@
 module org.glassfish.jersey.containers.container.servlet.core {
 
-       requires public java.naming;
-       requires public javax.inject;
-       requires public javax.servlet.api;
-       requires public javax.ws.rs.api;
-       requires public org.glassfish.jersey.core.common;
-       requires public org.glassfish.jersey.core.server;
-       requires public persistence.api;
+       requires transitive java.naming;
+       requires transitive javax.inject;
+       requires transitive javax.servlet.api;
+       requires transitive javax.ws.rs.api;
+       requires transitive org.glassfish.jersey.core.common;
+       requires transitive org.glassfish.jersey.core.server;
+       requires transitive persistence.api;
 
        exports org.glassfish.jersey.servlet;
        exports org.glassfish.jersey.servlet.internal;

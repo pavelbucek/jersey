@@ -1,8 +1,8 @@
 module org.glassfish.jersey.tests.integration.servlet.3.init.provider {
 
-       requires public javax.servlet.api;
-       requires public org.glassfish.jersey.containers.container.servlet;
-       requires public org.glassfish.jersey.ext.servlet.portability;
+       requires transitive javax.servlet.api;
+       requires transitive org.glassfish.jersey.containers.container.servlet;
+       requires transitive org.glassfish.jersey.ext.servlet.portability;
 
        exports org.glassfish.jersey.tests.integration.servlet_3_init_provider;
 

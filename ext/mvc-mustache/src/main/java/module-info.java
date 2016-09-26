@@ -1,8 +1,8 @@
 module org.glassfish.jersey.ext.mvc.mustache {
 
-       requires public compiler;
-       requires public javax.servlet.api;
-       requires public org.glassfish.jersey.ext.mvc;
+       requires transitive compiler;
+       requires transitive javax.servlet.api;
+       requires transitive org.glassfish.jersey.ext.mvc;
 
        exports org.glassfish.jersey.server.mvc.mustache;
 
