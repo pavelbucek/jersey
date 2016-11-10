@@ -12,7 +12,7 @@ module org.glassfish.jersey.core.client {
        exports org.glassfish.jersey.client.internal;
        exports org.glassfish.jersey.client.spi;
 
-        exports private org.glassfish.jersey.client to hk2.locator, hk2.utils;
+        opens org.glassfish.jersey.client to hk2.locator, hk2.utils;
 
         uses org.glassfish.jersey.client.spi.ConnectorProvider;
         uses org.glassfish.jersey.client.spi.DefaultSslContextProvider;

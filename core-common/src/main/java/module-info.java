@@ -34,10 +34,10 @@ module org.glassfish.jersey.core.common {
 //       exports org.glassfish.jersey.uri.internal to
 //        org.glassfish.jersey.core.server, org.glassfish.jersey.core.client;
 
-        exports private org.glassfish.jersey.internal.inject to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.model.internal to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.message.internal to hk2.locator;
-        exports private org.glassfish.jersey.internal to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.internal.inject to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.model.internal to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.message.internal to hk2.locator;
+        opens org.glassfish.jersey.internal to hk2.utils, hk2.locator;
 
         uses org.glassfish.jersey.internal.spi.ForcedAutoDiscoverable;
         uses org.glassfish.jersey.spi.HeaderDelegateProvider;

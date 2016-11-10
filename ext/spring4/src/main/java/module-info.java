@@ -4,6 +4,7 @@ module org.glassfish.jersey.ext.spring4 {
        requires transitive javax.servlet.api;
        requires transitive org.glassfish.jersey.containers.container.servlet.core;
        requires transitive org.glassfish.jersey.core.server;
+       requires transitive spring.aop;
        requires transitive spring.beans;
        requires transitive spring.bridge;
        requires transitive spring.context;

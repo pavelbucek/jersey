@@ -1,6 +1,5 @@
 module org.glassfish.jersey.core.server {
 
-       requires transitive asm.debug.all;
        requires transitive hk2.api;
        requires transitive hk2.locator;
        requires transitive java.management;
@@ -39,13 +38,13 @@ module org.glassfish.jersey.core.server {
        exports org.glassfish.jersey.server.wadl.internal.generators.resourcedoc.xhtml;
        exports org.glassfish.jersey.server.wadl.processor;
 
-        exports private org.glassfish.jersey.server.internal.inject to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.server.internal to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.server.internal.process to hk2.locator;
-        exports private org.glassfish.jersey.server.model.internal to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.server.model to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.server to hk2.utils, hk2.locator;
-        exports private org.glassfish.jersey.server.wadl.processor to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server.internal.inject to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server.internal to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server.internal.process to hk2.locator;
+        opens org.glassfish.jersey.server.model.internal to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server.model to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server to hk2.utils, hk2.locator;
+        opens org.glassfish.jersey.server.wadl.processor to hk2.utils, hk2.locator;
 
         uses org.glassfish.jersey.server.spi.ComponentProvider;
         uses org.glassfish.jersey.server.spi.ContainerProvider;
