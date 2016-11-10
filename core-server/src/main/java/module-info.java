@@ -38,6 +38,9 @@ module org.glassfish.jersey.core.server {
        exports org.glassfish.jersey.server.wadl.internal.generators.resourcedoc.xhtml;
        exports org.glassfish.jersey.server.wadl.processor;
 
+        // this is a hack -  for some reason, ModuleDescriptor.packages() doesn’t list unexported packages
+        exports jersey.repackaged.org.objectweb.asm to java.base;
+
         opens org.glassfish.jersey.server.internal.inject to hk2.utils, hk2.locator;
         opens org.glassfish.jersey.server.internal to hk2.utils, hk2.locator;
         opens org.glassfish.jersey.server.internal.process to hk2.locator;
