@@ -42,7 +42,11 @@ package org.glassfish.jersey.linking;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,14 +78,15 @@ class InjectLinksFieldDescriptor extends FieldDescriptor {
     public void setPropertyValue(Object instance, List<Link> list) {
         setAccessibleField(field);
         try {
+            List<Link> merged = mergeWithExistingField(instance, list);
 
             Object value;
-            if (List.class.equals(type)) {
-                value = list;
+            if (Objects.equals(List.class, type)) {
+                value = merged;
             } else if (type.isArray()) {
-                value = list.toArray((Object[]) Array.newInstance(type.getComponentType(), list.size()));
+                value = merged.toArray((Object[]) Array.newInstance(type.getComponentType(), merged.size()));
             } else {
-                throw new IllegalArgumentException("Field type " + type + " not one of supported List<Link> or List[]");
+                throw new IllegalArgumentException("Field type " + type + " not one of supported List<Link> or Link[]");
             }
 
             field.set(instance, value);
@@ -90,6 +95,22 @@ class InjectLinksFieldDescriptor extends FieldDescriptor {
         } catch (IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(InjectLinksFieldDescriptor.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private List<Link> mergeWithExistingField(Object instance, List<Link> list) throws IllegalAccessException {
+        Object existing = field.get(instance);
+        if (existing != null) {
+            if (Collection.class.isAssignableFrom(existing.getClass()) && !((Collection) existing).isEmpty()) {
+                List<Link> merged  = new ArrayList<>(list);
+                merged.addAll((Collection<Link>) existing);
+                return merged;
+            } else if (existing.getClass().isArray() && existing.getClass().isAssignableFrom(Link[].class)) {
+                List<Link> merged = new ArrayList<>(list);
+                merged.addAll(Arrays.asList((Link[]) existing));
+                return merged;
+            }
+        }
+        return list;
     }
 
     /**
