@@ -39,10 +39,13 @@
  */
 package org.glassfish.jersey.tests.e2e;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Flow;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -58,6 +61,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Variant;
 
+import org.glassfish.jersey.internal.util.DelayerPublisher;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
@@ -71,6 +75,8 @@ import static org.junit.Assert.fail;
  * @author Marek Potociar (marek.potociar at oracle.com)
  */
 public class ClientTest extends JerseyTest {
+
+    private Flow.Sink<ByteBuffer> responseEntitySink;
 
     @Path("helloworld")
     @Produces(MediaType.TEXT_PLAIN)
@@ -111,13 +117,83 @@ public class ClientTest extends JerseyTest {
     }
 
     @Test
-    public void testAccesingHelloworldResource() {
+    public void testAccessingHelloworldResource() {
         final WebTarget resource = target().path("helloworld");
         final Response r = resource.request().get();
         assertEquals(200, r.getStatus());
 
         final String responseMessage = resource.request().get(String.class);
         assertEquals(HelloWorldResource.MESSAGE, responseMessage);
+    }
+
+    public static class EntitySink implements Flow.Sink<ByteBuffer> {
+
+        private final CountDownLatch completeLatch;
+
+        public EntitySink(CountDownLatch completeLatch) {
+            this.completeLatch = completeLatch;
+        }
+
+        @Override
+        public void onSubscribe(Flow.Subscription subscription) {
+            subscription.request(Long.MAX_VALUE);
+        }
+
+        @Override
+        public void onNext(ByteBuffer item) {
+            int remaining = item.remaining();
+            byte[] bytes = new byte[remaining];
+            item.get(bytes);
+            System.out.println("--> onNext: " + new String(bytes));
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            System.out.println("--> onError");
+        }
+
+        @Override
+        public void onComplete() {
+            System.out.println("--> onComplete");
+            completeLatch.countDown();
+        }
+    }
+
+    @Test
+    public void testNioGet() throws InterruptedException {
+
+        final WebTarget resource = target().path("helloworld");
+        Flow.Source<ByteBuffer> byteBufferSource = resource.request().nio().get(ByteBuffer.class);
+
+        CountDownLatch completeLatch = new CountDownLatch(1);
+        byteBufferSource.subscribe(new EntitySink(completeLatch));
+        completeLatch.await();
+    }
+
+    @Test
+    public void testNioPost() throws InterruptedException {
+
+        final WebTarget resource = target().path("headers/content");
+
+
+        DelayerPublisher<ByteBuffer> requestEntityPublisher = new DelayerPublisher<>(byteBufferDelayerPublisher -> {
+
+            System.out.println("## started writing the request entity.");
+
+            byteBufferDelayerPublisher.submit(ByteBuffer.wrap("nio entity".getBytes()));
+            byteBufferDelayerPublisher.close();
+
+            System.out.println("## request entity written.");
+        });
+
+        Flow.Source<ByteBuffer> byteBufferSource = resource
+                .request()
+                .nio()
+                .post(Entity.nio(ByteBuffer.class, requestEntityPublisher, MediaType.TEXT_HTML_TYPE), ByteBuffer.class);
+
+        CountDownLatch completeLatch = new CountDownLatch(1);
+        byteBufferSource.subscribe(new EntitySink(completeLatch));
+        completeLatch.await();
     }
 
     @Test
@@ -154,22 +230,26 @@ public class ClientTest extends JerseyTest {
         r = i.invoke();
 
         reqHeaders = r.readEntity(String.class).toLowerCase();
-        for (final String expected : new String[] {"custom-header:[custom-value]", "custom-header:custom-value"}) {
-            assertTrue(String.format("Request headers do not contain expected '%s' entry:\n%s", expected, reqHeaders),
+        for (final String expected : new String[]{"custom-header:[custom-value]", "custom-header:custom-value"}) {
+            assertTrue(
+                    String.format("Request headers do not contain expected '%s' entry:\n%s", expected, reqHeaders),
                     reqHeaders.contains(expected));
         }
         final String unexpected = "content-encoding";
-        assertFalse(String.format("Request headers contains unexpected '%s' entry:\n%s", unexpected, reqHeaders),
+        assertFalse(
+                String.format("Request headers contains unexpected '%s' entry:\n%s", unexpected, reqHeaders),
                 reqHeaders.contains(unexpected));
 
         ib = target.request("*/*");
-        i = ib.build("POST",
+        i = ib.build(
+                "POST",
                 Entity.entity("aaa", Variant.mediaTypes(MediaType.WILDCARD_TYPE).encodings("deflate").build().get(0)));
         r = i.invoke();
 
         final String expected = "content-encoding:[deflate]";
         reqHeaders = r.readEntity(String.class).toLowerCase();
-        assertTrue(String.format("Request headers do not contain expected '%s' entry:\n%s", expected, reqHeaders),
+        assertTrue(
+                String.format("Request headers do not contain expected '%s' entry:\n%s", expected, reqHeaders),
                 reqHeaders.contains(expected));
     }
 }

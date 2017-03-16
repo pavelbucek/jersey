@@ -64,12 +64,12 @@ class JerseySseBroadcaster extends JerseyPublisher<OutboundSseEvent> implements 
     /**
      * Callbacks notified when {@code SseBroadcaster} is being closed.
      */
-    private final CopyOnWriteArrayList<Consumer<Flow.Subscriber<? super OutboundSseEvent>>> onCloseListeners;
+    private final CopyOnWriteArrayList<Consumer<Flow.Sink<? super OutboundSseEvent>>> onCloseListeners;
 
     /**
      * Callbacks notified when error occurs.
      */
-    private final CopyOnWriteArrayList<BiConsumer<Flow.Subscriber<? super OutboundSseEvent>, Throwable>> onExceptionListeners;
+    private final CopyOnWriteArrayList<BiConsumer<Flow.Sink<? super OutboundSseEvent>, Throwable>> onExceptionListeners;
 
     /**
      * Package-private constructor.
@@ -82,7 +82,7 @@ class JerseySseBroadcaster extends JerseyPublisher<OutboundSseEvent> implements 
     }
 
     @Override
-    public void onError(final BiConsumer<Flow.Subscriber<? super OutboundSseEvent>, Throwable> onError) {
+    public void onError(final BiConsumer<Flow.Sink<? super OutboundSseEvent>, Throwable> onError) {
         if (onError == null) {
             throw new IllegalArgumentException(LocalizationMessages.PARAM_NULL("onError"));
         }
@@ -90,7 +90,7 @@ class JerseySseBroadcaster extends JerseyPublisher<OutboundSseEvent> implements 
     }
 
     @Override
-    public void onClose(final Consumer<Flow.Subscriber<? super OutboundSseEvent>> onClose) {
+    public void onClose(final Consumer<Flow.Sink<? super OutboundSseEvent>> onClose) {
         if (onClose == null) {
             throw new IllegalArgumentException(LocalizationMessages.PARAM_NULL("onClose"));
         }
@@ -106,8 +106,8 @@ class JerseySseBroadcaster extends JerseyPublisher<OutboundSseEvent> implements 
     }
 
     @Override
-    public void subscribe(final Flow.Subscriber<? super OutboundSseEvent> subscriber) {
-        final Flow.Subscriber<OutboundSseEvent> wrapped = new Flow.Subscriber<OutboundSseEvent>() {
+    public void subscribe(final Flow.Sink<? super OutboundSseEvent> subscriber) {
+        final Flow.Sink<OutboundSseEvent> wrapped = new Flow.Sink<OutboundSseEvent>() {
 
             @Override
             public void onSubscribe(final Flow.Subscription subscription) {
@@ -134,11 +134,11 @@ class JerseySseBroadcaster extends JerseyPublisher<OutboundSseEvent> implements 
         super.subscribe(wrapped);
     }
 
-    private void notifyOnCompleteHandlers(final Flow.Subscriber<? super OutboundSseEvent> subscriber) {
+    private void notifyOnCompleteHandlers(final Flow.Sink<? super OutboundSseEvent> subscriber) {
         onCloseListeners.forEach((listener) -> listener.accept(subscriber));
     }
 
-    private void notifyOnErrorCallbacks(final Flow.Subscriber<? super OutboundSseEvent> subscriber, final Throwable throwable) {
+    private void notifyOnErrorCallbacks(final Flow.Sink<? super OutboundSseEvent> subscriber, final Throwable throwable) {
         onExceptionListeners.forEach((listener) -> listener.accept(subscriber, throwable));
     }
 

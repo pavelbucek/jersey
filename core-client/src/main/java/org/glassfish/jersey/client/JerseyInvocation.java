@@ -39,18 +39,21 @@
  */
 package org.glassfish.jersey.client;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.Flow;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAcceptableException;
@@ -67,7 +70,6 @@ import javax.ws.rs.client.CompletionStageRxInvoker;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.InvocationCallback;
-import javax.ws.rs.client.NioInvoker;
 import javax.ws.rs.client.ResponseProcessingException;
 import javax.ws.rs.client.RxInvoker;
 import javax.ws.rs.client.RxInvokerProvider;
@@ -535,9 +537,68 @@ public class JerseyInvocation implements javax.ws.rs.client.Invocation {
         }
 
         @Override
-        public NioInvoker nio() {
-            // TODO JAX-RS 2.1: to be implemented
-            throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
+        public javax.ws.rs.client.NioInvoker nio() {
+            return new NioInvoker(this);
+        }
+    }
+
+    private static class NioInvoker implements javax.ws.rs.client.NioInvoker {
+
+        private final JerseyInvocation.Builder builder;
+
+        private NioInvoker(final JerseyInvocation.Builder request) {
+            this.builder = request;
+        }
+
+        @Override
+        public <T> Flow.Source<T> post(Entity<?> entity, Class<T> entityType) {
+            if (entityType == null) {
+                throw new IllegalArgumentException(LocalizationMessages.RESPONSE_TYPE_IS_NULL());
+            }
+
+            builder.storeEntity(entity);
+            builder.requestContext.setMethod("POST");
+            try {
+                return nioInvocation(entityType);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        @Override
+        public <T> Flow.Source<T> get(Class<T> entityType) {
+            if (entityType == null) {
+                throw new IllegalArgumentException(LocalizationMessages.RESPONSE_TYPE_IS_NULL());
+            }
+
+            builder.requestContext.setMethod("GET");
+            try {
+                return nioInvocation(entityType);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        private <T> Flow.Source<T> nioInvocation(final Class<T> entityType) throws InterruptedException, ExecutionException {
+            return new JerseyInvocation(builder).submit(new GenericType<Flow.Source<T>>(new ParameterizedType() {
+                @Override
+                public Type[] getActualTypeArguments() {
+                    return new Type[]{entityType};
+                }
+
+                @Override
+                public Type getRawType() {
+                    return Flow.Source.class;
+                }
+
+                @Override
+                public Type getOwnerType() {
+                    return Flow.class;
+                }
+            }) {
+
+            }).get();
         }
     }
 
@@ -1117,7 +1178,8 @@ public class JerseyInvocation implements javax.ws.rs.client.Invocation {
 
             return new ResponseProcessingException(response, webAppException);
         } catch (final Throwable t) {
-            return new ResponseProcessingException(response, LocalizationMessages.RESPONSE_TO_EXCEPTION_CONVERSION_FAILED(), t);
+            return new ResponseProcessingException(response, LocalizationMessages
+                    .RESPONSE_TO_EXCEPTION_CONVERSION_FAILED(), t);
         }
     }
 

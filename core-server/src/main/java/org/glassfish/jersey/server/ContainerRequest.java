@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +52,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
+import javax.ws.rs.Flow;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
@@ -60,9 +63,6 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.NioCompletionHandler;
-import javax.ws.rs.core.NioErrorHandler;
-import javax.ws.rs.core.NioReaderHandler;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -357,25 +357,19 @@ public class ContainerRequest extends InboundMessageContext
     }
 
     @Override
-    public void entity(NioReaderHandler reader) {
+    public void addProcessor(Flow.Processor<ByteBuffer, ByteBuffer> processor) {
         // TODO JAX-RS 2.1: to be implemented
         throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
     }
 
     @Override
-    public void entity(NioReaderHandler reader, NioCompletionHandler completion) {
+    public Flow.Source<ByteBuffer> entity() {
         // TODO JAX-RS 2.1: to be implemented
         throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
     }
 
     @Override
-    public void entity(NioReaderHandler reader, NioErrorHandler error) {
-        // TODO JAX-RS 2.1: to be implemented
-        throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
-    }
-
-    @Override
-    public void entity(NioReaderHandler reader, NioCompletionHandler completion, NioErrorHandler error) {
+    public void entity(Consumer<Flow.Source<ByteBuffer>> readerHandler) {
         // TODO JAX-RS 2.1: to be implemented
         throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
     }

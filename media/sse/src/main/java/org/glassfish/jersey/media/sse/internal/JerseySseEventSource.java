@@ -205,6 +205,11 @@ public class JerseySseEventSource implements javax.ws.rs.sse.SseEventSource, Eve
     }
 
     @Override
+    public void subscribe(Flow.Sink<? super InboundSseEvent> sink) {
+        publisher.subscribe(sink);
+    }
+
+    @Override
     public void subscribe(final Consumer<SseSubscription> onSubscribe,
                           final Consumer<InboundSseEvent> onEvent,
                           final Consumer<Throwable> onError,
@@ -213,7 +218,7 @@ public class JerseySseEventSource implements javax.ws.rs.sse.SseEventSource, Eve
             throw new IllegalStateException(LocalizationMessages.PARAMS_NULL());
         }
 
-        publisher.subscribe(new Flow.Subscriber<InboundSseEvent>() {
+        publisher.subscribe(new Flow.Sink<InboundSseEvent>() {
             @Override
             public void onSubscribe(final Flow.Subscription subscription) {
                 onSubscribe.accept(new SseSubscription() {

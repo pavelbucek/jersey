@@ -56,7 +56,7 @@ import org.glassfish.jersey.internal.jsr166.SubmissionPublisher;
  *
  * @author Adam Lindenthal (adam.lindenthal at oracle.com)
  */
-public class JerseyPublisher<T> implements javax.ws.rs.Flow.Publisher<T> {
+public class JerseyPublisher<T> implements javax.ws.rs.Flow.Source<T> {
 
     private static final int DEFAULT_BUFFER_CAPACITY = 256;
     private SubmissionPublisher<T> submissionPublisher = new SubmissionPublisher<>();
@@ -101,11 +101,11 @@ public class JerseyPublisher<T> implements javax.ws.rs.Flow.Publisher<T> {
      * @throws IllegalArgumentException if maxBufferCapacity not positive
      */
     public JerseyPublisher(final ExecutorService executorService, final int maxBufferCapacity) {
-        submissionPublisher = new SubmissionPublisher<>(executorService::execute, maxBufferCapacity);
+        submissionPublisher = new SubmissionPublisher<>(executorService, maxBufferCapacity);
     }
 
     @Override
-    public void subscribe(final javax.ws.rs.Flow.Subscriber<? super T> subscriber) {
+    public void subscribe(final javax.ws.rs.Flow.Sink<? super T> subscriber) {
         submissionPublisher.subscribe(new Flow.Subscriber<T>() {
 
             @Override

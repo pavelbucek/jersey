@@ -61,6 +61,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.ws.rs.Flow;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.EntityTag;
@@ -882,7 +883,7 @@ public abstract class InboundMessageContext {
                     entityContent.hasContent() ? getReaderInterceptors() : Collections.<ReaderInterceptor>emptyList(),
                     translateNce);
 
-            shouldClose = shouldClose && !(t instanceof Closeable) && !(t instanceof Source);
+            shouldClose = shouldClose && !(t instanceof Closeable) && !(t instanceof Source) && !(t instanceof Flow.Source);
 
             return t;
         } catch (IOException ex) {

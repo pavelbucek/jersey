@@ -131,7 +131,7 @@ public class JerseyPublisherTest {
         //   and gets to the sysout behind the onComplete() call for all the three subscribers (see output)
     }
 
-    class PublisherTestSubscriber implements Flow.Subscriber<String> {
+    class PublisherTestSubscriber implements Flow.Sink<String> {
         private final String name;
         private final CountDownLatch openLatch;
         private final CountDownLatch writeLatch;

@@ -93,7 +93,7 @@ public class JerseySseBroadcasterTest {
                 }
             });
 
-            broadcaster.subscribe(new Flow.Subscriber<OutboundSseEvent>() {
+            broadcaster.subscribe(new Flow.Sink<OutboundSseEvent>() {
                 @Override
                 public void onSubscribe(Flow.Subscription subscription) {
                     throw new RuntimeException(TEST_EXCEPTION_MSG);
@@ -135,7 +135,7 @@ public class JerseySseBroadcasterTest {
                 }
             });
 
-            broadcaster.subscribe(new Flow.Subscriber<OutboundSseEvent>() {
+            broadcaster.subscribe(new Flow.Sink<OutboundSseEvent>() {
                 @Override
                 public void onSubscribe(Flow.Subscription subscription) {
                     throw new RuntimeException(TEST_EXCEPTION_MSG);
@@ -171,7 +171,7 @@ public class JerseySseBroadcasterTest {
                 }
             });
 
-            broadcaster.subscribe(new Flow.Subscriber<OutboundSseEvent>() {
+            broadcaster.subscribe(new Flow.Sink<OutboundSseEvent>() {
                 @Override
                 public void onSubscribe(Flow.Subscription subscription) {
                     subscription.request(Long.MAX_VALUE);
@@ -202,7 +202,7 @@ public class JerseySseBroadcasterTest {
 
             final CountDownLatch latch = new CountDownLatch(1);
 
-            final Flow.Subscriber<OutboundSseEvent> subscriber = new Flow.Subscriber<OutboundSseEvent>() {
+            final Flow.Sink<OutboundSseEvent> subscriber = new Flow.Sink<OutboundSseEvent>() {
                 @Override
                 public void onSubscribe(Flow.Subscription subscription) {
                     subscription.request(Long.MAX_VALUE);

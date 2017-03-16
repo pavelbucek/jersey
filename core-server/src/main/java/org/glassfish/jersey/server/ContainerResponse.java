@@ -45,11 +45,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.Flow;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.EntityTag;
@@ -420,5 +422,11 @@ public class ContainerResponse implements ContainerResponseContext {
      */
     public boolean isChunked() {
         return hasEntity() && ChunkedOutput.class.isAssignableFrom(getEntity().getClass());
+    }
+
+    @Override
+    public void addProcessor(Flow.Processor<ByteBuffer, ByteBuffer> processor) {
+        // TODO JAX-RS 2.1: to be implemented
+        throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
     }
 }

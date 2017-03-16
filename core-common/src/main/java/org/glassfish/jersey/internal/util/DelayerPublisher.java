@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2010-2012 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
@@ -37,23 +37,39 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.jersey.examples.helloworld;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+package org.glassfish.jersey.internal.util;
+
+import java.util.function.Consumer;
+
+import javax.ws.rs.Flow;
 
 /**
- * @author Jakub Podlesak (jakub.podlesak at oracle.com)
+ * @author Pavel Bucek (pavel.bucek at oracle.com)
  */
-@Path("helloworld")
-public class HelloWorldResource {
-    public static final String CLICHED_MESSAGE = "Hello World!";
+public class DelayerPublisher<T> extends JerseyPublisher<T> {
 
-    @GET
-    @Produces("text/plain")
-    public String getHello() {
-        return CLICHED_MESSAGE;
+    private final Consumer<DelayerPublisher<T>> consumer;
+    private boolean started = false;
+
+    public DelayerPublisher(Consumer<DelayerPublisher<T>> consumer) {
+        this.consumer = consumer;
     }
 
+    @Override
+    public void subscribe(Flow.Sink<? super T> subscriber) {
+        super.subscribe(subscriber);
+
+        if (!started) {
+            startRunnable();
+        }
+    }
+
+    // TODO: smarter synchronization
+    private synchronized void startRunnable() {
+        if (!started) {
+            new Thread(() -> consumer.accept(DelayerPublisher.this)).start();
+            started = true;
+        }
+    }
 }

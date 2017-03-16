@@ -106,6 +106,11 @@ public final class MessagingBinders {
             bind(SourceProvider.StreamSourceReader.class).to(MessageBodyReader.class).in(Singleton.class);
             bind(SourceProvider.SaxSourceReader.class).to(MessageBodyReader.class).in(Singleton.class);
             bind(SourceProvider.DomSourceReader.class).to(MessageBodyReader.class).in(Singleton.class);
+
+            // nio
+            bind(ByteBufferSourceReader.class).to(MessageBodyReader.class).in(Singleton.class);
+            bind(ByteBufferSourceWriter.class).to(MessageBodyWriter.class).in(Singleton.class);
+
             /*
              * TODO: com.sun.jersey.core.impl.provider.entity.EntityHolderReader
              */

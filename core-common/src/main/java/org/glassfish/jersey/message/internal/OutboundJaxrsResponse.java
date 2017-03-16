@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.net.URI;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -52,7 +53,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
+import javax.ws.rs.Flow;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.EntityTag;
@@ -62,9 +65,6 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.NioErrorHandler;
-import javax.ws.rs.core.NioWriterHandler;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Variant;
 
 import org.glassfish.jersey.internal.LocalizationMessages;
@@ -495,13 +495,7 @@ public class OutboundJaxrsResponse extends javax.ws.rs.core.Response {
         }
 
         @Override
-        public ResponseBuilder entity(NioWriterHandler writer) {
-            // TODO JAX-RS 2.1: to be implemented
-            throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
-        }
-
-        @Override
-        public ResponseBuilder entity(NioWriterHandler writer, NioErrorHandler error) {
+        public ResponseBuilder entity(Consumer<Flow.Sink<ByteBuffer>> writeHandler) {
             // TODO JAX-RS 2.1: to be implemented
             throw new UnsupportedOperationException("TODO JAX-RS 2.1: to be implemented");
         }
