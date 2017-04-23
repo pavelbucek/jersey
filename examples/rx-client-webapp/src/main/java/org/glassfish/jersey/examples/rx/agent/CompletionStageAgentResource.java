@@ -53,10 +53,13 @@ import java.util.stream.Collectors;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.examples.rx.domain.AgentResponse;
 import org.glassfish.jersey.examples.rx.domain.Calculation;
@@ -64,7 +67,6 @@ import org.glassfish.jersey.examples.rx.domain.Destination;
 import org.glassfish.jersey.examples.rx.domain.Forecast;
 import org.glassfish.jersey.examples.rx.domain.Recommendation;
 import org.glassfish.jersey.internal.guava.ThreadFactoryBuilder;
-import org.glassfish.jersey.server.Uri;
 
 /**
  * Obtain information about visited (destination) and recommended (destination, forecast, price) places for
@@ -76,20 +78,29 @@ import org.glassfish.jersey.server.Uri;
 @Produces("application/json")
 public class CompletionStageAgentResource {
 
-    @Uri("remote/destination")
-    private WebTarget destinationTarget;
+    // @Uri("remote/destination")
+    private static WebTarget destinationTarget;
 
-    @Uri("remote/calculation/from/{from}/to/{to}")
-    private WebTarget calculationTarget;
+    // @Uri("remote/calculation/from/{from}/to/{to}")
+    private static WebTarget calculationTarget;
 
-    @Uri("remote/forecast/{destination}")
-    private WebTarget forecastTarget;
+    // @Uri("remote/forecast/{destination}")
+    private static WebTarget forecastTarget;
 
-    private final ExecutorService executor;
+    private static final ExecutorService executor;
+
+    static {
+        executor = new ScheduledThreadPoolExecutor(20,
+                                                   new ThreadFactoryBuilder().setNameFormat("jersey-rx-client-completion-%d").build());
+
+        Client client = ClientBuilder.newBuilder().executorService(executor).build();
+
+        destinationTarget = client.target("http://localhost:9998/rx-client-webapp/rx/remote/destination");
+        calculationTarget = client.target(UriBuilder.fromUri("http://localhost:9998/rx-client-webapp/rx/remote/calculation/from/{from}/to/{to}"));
+        forecastTarget = client.target(UriBuilder.fromUri("http://localhost:9998/rx-client-webapp/rx/remote/remote/forecast/{destination}"));
+    }
 
     public CompletionStageAgentResource() {
-        executor = new ScheduledThreadPoolExecutor(20,
-                new ThreadFactoryBuilder().setNameFormat("jersey-rx-client-completion-%d").build());
     }
 
     @GET
