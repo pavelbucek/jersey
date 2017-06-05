@@ -81,7 +81,9 @@ class ExternalRequestScopeConfigurator implements BootstrapConfigurator {
             if (LOGGER.isLoggable(Level.WARNING)) {
                 StringBuilder scopeList = new StringBuilder("\n");
                 for (Class<ExternalRequestScope> ers : extScopes) {
-                    scopeList.append("   ").append(ers.getTypeParameters()[0]).append('\n');
+                    if (ers.getTypeParameters().length != 0) {
+                        scopeList.append("   ").append(ers.getTypeParameters()[0]).append('\n');
+                    }
                 }
                 LOGGER.warning(LocalizationMessages.WARNING_TOO_MANY_EXTERNAL_REQ_SCOPES(scopeList.toString()));
             }
