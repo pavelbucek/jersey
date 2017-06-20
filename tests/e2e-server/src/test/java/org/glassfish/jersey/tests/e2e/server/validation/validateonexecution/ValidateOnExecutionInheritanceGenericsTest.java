@@ -434,7 +434,7 @@ public class ValidateOnExecutionInheritanceGenericsTest extends ValidateOnExecut
 
     @Test
     public void testOnTypeValidateInputPassValidateExecutableDefault() throws Exception {
-        _testOnType("default", 15, 400);
+        _testOnType("default", 15, 200);
     }
 
     @Test

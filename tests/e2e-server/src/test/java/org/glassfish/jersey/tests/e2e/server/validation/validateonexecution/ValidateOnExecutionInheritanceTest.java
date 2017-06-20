@@ -332,7 +332,7 @@ public class ValidateOnExecutionInheritanceTest extends ValidateOnExecutionAbstr
 
     @Test
     public void testOnTypeValidateInputPassValidateExecutableDefault() throws Exception {
-        _testOnType("default", 15, 400);
+        _testOnType("default", 15, 200);
     }
 
     @Test
@@ -347,7 +347,7 @@ public class ValidateOnExecutionInheritanceTest extends ValidateOnExecutionAbstr
 
     @Test
     public void testMixedClassValidateInputPassValidateDefault() throws Exception {
-        _test("mixed-class-default", 15, 400);
+        _test("mixed-class-default", 15, 200);
     }
 
     @Test
@@ -362,7 +362,7 @@ public class ValidateOnExecutionInheritanceTest extends ValidateOnExecutionAbstr
 
     @Test
     public void testMixedClassValidateInputPassNone() throws Exception {
-        _test("mixed-class-none", 15, 400);
+        _test("mixed-class-none", 15, 200);
     }
 
     @Test

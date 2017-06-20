@@ -352,6 +352,16 @@ public class ValidateOnExecutionBasicTest extends ValidateOnExecutionAbstractTes
     }
 
     @Test
+    public void testOnTypeValidateInputPassBiggerValidateExecutableMiss() throws Exception {
+        _testOnType("miss", 15, 400);
+    }
+
+    @Test
+    public void testOnTypeValidateInputPassBiggerValidateExecutableNone() throws Exception {
+        _testOnType("none", 15, 400);
+    }
+
+    @Test
     public void testOnMethodGetterDefault() throws Exception {
         final WebTarget target = target("getter-on-method-default");
 

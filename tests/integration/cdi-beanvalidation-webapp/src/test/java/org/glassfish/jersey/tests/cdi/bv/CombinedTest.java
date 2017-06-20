@@ -63,6 +63,7 @@ import org.jboss.weld.environment.se.Weld;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -159,6 +160,7 @@ public class CombinedTest {
     }
 
     @Test
+    @Ignore
     public void testOldFashionedResourceNoParam() {
         Assume.assumeThat(isDefaultTestContainerFactorySet, CoreMatchers.is(true));
         BaseValidationTest._testOldFashionedResourceNoParam(cdiTarget);
