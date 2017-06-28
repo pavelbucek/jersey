@@ -80,7 +80,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @author Jakub Podlesak (jakub.podlesak at oracle.com)
  */
-@Priority(value = Interceptor.Priority.PLATFORM_BEFORE + 199)
+@Priority(value = Interceptor.Priority.PLATFORM_BEFORE + 200)
 public class TransactionalExceptionInterceptorProvider implements ComponentProvider, Extension {
 
     private InjectionManager injectionManager;
