@@ -74,10 +74,21 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
 
     private final ComponentBag componentBag;
     private final JerseyClient client;
+    private final ExecutorService customExecutorService;
+    private final ScheduledExecutorService customScheduledExecutorService;
 
-    ClientExecutorProvidersConfigurator(ComponentBag componentBag, JerseyClient client) {
+    ClientExecutorProvidersConfigurator(ComponentBag componentBag, JerseyClient client,
+                                        ExecutorService customExecutorService,
+                                        ScheduledExecutorService customScheduledExecutorService) {
         this.componentBag = componentBag;
         this.client = client;
+        this.customExecutorService = customExecutorService;
+        this.customScheduledExecutorService = customScheduledExecutorService;
+    }
+
+
+    ClientExecutorProvidersConfigurator(ComponentBag componentBag, JerseyClient client) {
+        this(componentBag, client, null, null);
     }
 
     @Override
@@ -93,11 +104,14 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
         // if there is a users provided executor service, use it
         if (clientExecutorService != null) {
             defaultAsyncExecutorProvider = new ClientExecutorServiceProvider(clientExecutorService);
-        // otherwise, check for ClientProperties.ASYNC_THREADPOOL_SIZE - if that is set, Jersey will create the
-        // ExecutorService to be used. If not and running on Java EE container, ManagedExecutorService will be used.
-        // Final fallback is DefaultClientAsyncExecutorProvider with defined default.
+            // otherwise, check for ClientProperties.ASYNC_THREADPOOL_SIZE - if that is set, Jersey will create the
+            // ExecutorService to be used. If not and running on Java EE container, ManagedExecutorService will be used.
+            // Final fallback is DefaultClientAsyncExecutorProvider with defined default.
+        } else if (customExecutorService != null) {
+            // custom executor service can be also set via managed client config class, in that case, it ends up in the
+            // customExecutorService field (similar for scheduled version)
+            defaultAsyncExecutorProvider = new ClientExecutorServiceProvider(customExecutorService);
         } else {
-
             // Default async request executors support
             Integer asyncThreadPoolSize = ClientProperties
                     .getValue(runtimeProperties, ClientProperties.ASYNC_THREADPOOL_SIZE, Integer.class);
@@ -131,6 +145,9 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
         if (clientScheduledExecutorService != null) {
             defaultScheduledExecutorProvider =
                     new ClientScheduledExecutorServiceProvider(Values.of(clientScheduledExecutorService));
+        } else if (customScheduledExecutorService != null) {
+            defaultScheduledExecutorProvider =
+                    new ClientScheduledExecutorServiceProvider(Values.of(customScheduledExecutorService));
         } else {
             ScheduledExecutorService scheduledExecutorService = lookupManagedScheduledExecutorService();
             defaultScheduledExecutorProvider =
