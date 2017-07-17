@@ -129,7 +129,8 @@ public class ManagedClientExecutorTest extends JerseyTest {
         @Path("scheduledExecutor")
         public String managedClientWithScheduledExecutor(@ClientA @Uri("http://localhost:9998/") WebTarget target)
                 throws ExecutionException, InterruptedException {
-            Future<SchedulerThreadName> namesFuture = target.path("test/dummy").request().async().get(SchedulerThreadName.class);
+            Future<SchedulerThreadName> namesFuture = target.path("test/dummy").request().async()
+                                                            .get(SchedulerThreadName.class);
             return namesFuture.get().getThreadNameFromService() + " " + namesFuture.get().getThreadNameFromProvider();
         }
 

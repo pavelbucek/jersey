@@ -56,6 +56,8 @@ import org.glassfish.grizzly.http.server.HttpHandlerRegistration;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
+import org.glassfish.grizzly.http2.Http2AddOn;
+import org.glassfish.grizzly.http2.Http2Configuration;
 import org.glassfish.grizzly.ssl.SSLEngineConfigurator;
 import org.glassfish.grizzly.utils.Charsets;
 
@@ -268,6 +270,12 @@ public final class GrizzlyHttpServerFactory {
         if (sslEngineConfigurator != null) {
             listener.setSSLEngineConfig(sslEngineConfigurator);
         }
+
+        // Create default HTTP/2 configuration and provide it to the AddOn
+        Http2Configuration configuration = Http2Configuration.builder().build();
+        Http2AddOn http2Addon = new Http2AddOn(configuration);
+
+        listener.registerAddOn(http2Addon);
 
         final HttpServer server = new HttpServer();
         server.addListener(listener);

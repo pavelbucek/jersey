@@ -86,11 +86,6 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
         this.customScheduledExecutorService = customScheduledExecutorService;
     }
 
-
-    ClientExecutorProvidersConfigurator(ComponentBag componentBag, JerseyClient client) {
-        this(componentBag, client, null, null);
-    }
-
     @Override
     public void init(InjectionManager injectionManager, BootstrapBag bootstrapBag) {
         Map<String, Object> runtimeProperties = bootstrapBag.getConfiguration().getProperties();
@@ -99,7 +94,11 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
         ExecutorServiceProvider defaultAsyncExecutorProvider = null;
         ScheduledExecutorServiceProvider defaultScheduledExecutorProvider = null;
 
-        final ExecutorService clientExecutorService = client.getExecutorService();
+        final ExecutorService clientExecutorService = client.getExecutorService() == null
+                // custom executor service can be also set via managed client config class, in that case, it ends up in the
+                // customExecutorService field (similar for scheduled version)
+                ? customExecutorService
+                : client.getExecutorService();
 
         // if there is a users provided executor service, use it
         if (clientExecutorService != null) {
@@ -107,10 +106,6 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
             // otherwise, check for ClientProperties.ASYNC_THREADPOOL_SIZE - if that is set, Jersey will create the
             // ExecutorService to be used. If not and running on Java EE container, ManagedExecutorService will be used.
             // Final fallback is DefaultClientAsyncExecutorProvider with defined default.
-        } else if (customExecutorService != null) {
-            // custom executor service can be also set via managed client config class, in that case, it ends up in the
-            // customExecutorService field (similar for scheduled version)
-            defaultAsyncExecutorProvider = new ClientExecutorServiceProvider(customExecutorService);
         } else {
             // Default async request executors support
             Integer asyncThreadPoolSize = ClientProperties
@@ -141,21 +136,22 @@ class ClientExecutorProvidersConfigurator extends AbstractExecutorProvidersConfi
         injectionManager.register(executorBinding);
         finalizer.registerForPreDestroyCall(defaultAsyncExecutorProvider);
 
-        final ScheduledExecutorService clientScheduledExecutorService = client.getScheduledExecutorService();
+        final ScheduledExecutorService clientScheduledExecutorService = client.getScheduledExecutorService() == null
+                // scheduled executor service set from {@link ClientConfig}.
+                ? customScheduledExecutorService
+                : client.getScheduledExecutorService();
+
         if (clientScheduledExecutorService != null) {
             defaultScheduledExecutorProvider =
                     new ClientScheduledExecutorServiceProvider(Values.of(clientScheduledExecutorService));
-        } else if (customScheduledExecutorService != null) {
-            defaultScheduledExecutorProvider =
-                    new ClientScheduledExecutorServiceProvider(Values.of(customScheduledExecutorService));
         } else {
             ScheduledExecutorService scheduledExecutorService = lookupManagedScheduledExecutorService();
             defaultScheduledExecutorProvider =
-                scheduledExecutorService == null
-                        // default client background scheduler disposes the executor service when client is closed.
-                        // we don't need to do that for user provided (via ClientBuilder) or managed executor service.
-                        ? new DefaultClientBackgroundSchedulerProvider()
-                        : new ClientScheduledExecutorServiceProvider(Values.of(scheduledExecutorService));
+                    scheduledExecutorService == null
+                            // default client background scheduler disposes the executor service when client is closed.
+                            // we don't need to do that for user provided (via ClientBuilder) or managed executor service.
+                            ? new DefaultClientBackgroundSchedulerProvider()
+                            : new ClientScheduledExecutorServiceProvider(Values.of(scheduledExecutorService));
         }
 
         InstanceBinding<ScheduledExecutorServiceProvider> schedulerBinding = Bindings
