@@ -62,6 +62,10 @@
     <dependencies>
         <dependency>
             <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
             <artifactId>grizzly-http-client</artifactId>
         </dependency>
         <dependency>

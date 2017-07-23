@@ -55,6 +55,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpUpgradeHandler;
 import javax.ws.rs.core.GenericType;
 
 import javax.inject.Inject;
@@ -469,6 +470,11 @@ public class RequestResponseWrapperProvider extends NoOpServletContainerProvider
                 public Locale getLocale() {
                     return getHttpServletResponse().getLocale();
                 }
+
+                @Override
+                public void setContentLengthLong(long l) {
+                    getHttpServletResponse().setContentLengthLong(l);
+                }
             }
             ) {
                 @Override
@@ -848,6 +854,21 @@ public class RequestResponseWrapperProvider extends NoOpServletContainerProvider
         @Override
         public void login(String u, String p) throws ServletException {
             getHttpServletRequest().login(u, p);
+        }
+
+        @Override
+        public String changeSessionId() {
+            return getHttpServletRequest().changeSessionId();
+        }
+
+        @Override
+        public <T extends HttpUpgradeHandler> T upgrade(Class<T> aClass) throws IOException, ServletException {
+            return getHttpServletRequest().upgrade(aClass);
+        }
+
+        @Override
+        public long getContentLengthLong() {
+            return getHttpServletRequest().getContentLength();
         }
     }
 
